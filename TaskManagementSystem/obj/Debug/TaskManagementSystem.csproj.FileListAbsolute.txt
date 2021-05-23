@@ -108,3 +108,4 @@ D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.dll
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.pdb
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.Initial.resources
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.csproj.GenerateResource.cache
+D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddProjectAndProjectTaskClass.resources
