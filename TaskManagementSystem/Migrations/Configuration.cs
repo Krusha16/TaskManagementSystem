@@ -9,7 +9,7 @@ namespace TaskManagementSystem.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(TaskManagementSystem.Models.ApplicationDbContext context)
