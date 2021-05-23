@@ -101,11 +101,11 @@ D:\ACSharp\Task-repo\TaskManagementSystem\bin\Microsoft.Owin.Security.Twitter.xm
 D:\ACSharp\Task-repo\TaskManagementSystem\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\ACSharp\Task-repo\TaskManagementSystem\bin\Microsoft.Owin.Security.OAuth.xml
 D:\ACSharp\Task-repo\TaskManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.csprojAssemblyReference.cache
+D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.Initial.resources
+D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddProjectAndProjectTaskClass.resources
+D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddCommentClass.resources
+D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.csproj.GenerateResource.cache
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.csproj.CoreCompileInputs.cache
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.csproj.CopyComplete
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.dll
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.pdb
-D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.Initial.resources
-D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.csproj.GenerateResource.cache
-D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddProjectAndProjectTaskClass.resources

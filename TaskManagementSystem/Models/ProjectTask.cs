@@ -17,5 +17,11 @@ namespace TaskManagementSystem.Models
 
         public int ProjectId { get; set; }
         public virtual Project Project { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
+        public ProjectTask()
+        {
+            this.Comments = new HashSet<Comment>();
+        }
     }
 }
