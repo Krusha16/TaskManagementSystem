@@ -1,0 +1,13 @@
+﻿@model List<string>
+@{
+    ViewBag.Title = "AllRoles";
+}
+
+<h2>AllRoles</h2>
+
+<ul>
+    @foreach (var role in Model)
+    {
+        <li>@role</li>
+    }
+</ul>
