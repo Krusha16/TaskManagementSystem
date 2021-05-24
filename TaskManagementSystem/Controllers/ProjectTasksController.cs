@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -131,6 +132,75 @@ namespace TaskManagementSystem.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [Authorize(Roles = "Developer")]
+        public ActionResult AllTasks()
+        {
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
+            return View(filteredTasks);
+        }
+
+        [Authorize(Roles = "Developer")]
+        [HttpPost]
+        public ActionResult UpdateCompletedPercetage(int taskId, int percentage)
+        {
+            ProjectTask projectTask = db.ProjectTasks.Find(taskId);
+            if (projectTask == null)
+            {
+                return HttpNotFound();
+            }
+            projectTask.CompletionPercentage = percentage;
+            if (projectTask.CompletionPercentage >= 100)
+            {
+                projectTask.CompletionPercentage = 100;
+                projectTask.IsCompleted = true;
+            }
+            db.SaveChanges();
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
+            return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
+        }
+
+        [Authorize(Roles = "Developer")]
+        [HttpPost]
+        public ActionResult MarkAsCompleted(int taskId)
+        {
+            ProjectTask projectTask = db.ProjectTasks.Find(taskId);
+            if (projectTask == null)
+            {
+                return HttpNotFound();
+            }
+            projectTask.CompletionPercentage = 100;
+            projectTask.IsCompleted = true;
+            db.SaveChanges();
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
+            return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
+        }
+
+        [Authorize(Roles = "Developer")]
+        [HttpPost]
+        public ActionResult AddComment(int taskId, string content)
+        {
+            ProjectTask projectTask = db.ProjectTasks.Find(taskId);
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            if (projectTask == null)
+            {
+                return HttpNotFound();
+            }
+            if (projectTask.IsCompleted)
+            {
+                Comment newComment = new Comment();
+                newComment.Content = content;
+                newComment.ProjectTaskId = taskId;
+                newComment.ApplicationUserId = userId;
+                db.Comments.Add(newComment);
+            }
+            db.SaveChanges();
+            var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
+            return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
         }
     }
 }

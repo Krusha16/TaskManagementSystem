@@ -12,11 +12,13 @@ namespace TaskManagementSystem.Models
     {
         public virtual ICollection<Project> Projects { get; set; }
         public virtual ICollection<ProjectTask> ProjectTasks { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
         public ApplicationUser()
         {
             this.Projects = new HashSet<Project>();
             this.ProjectTasks = new HashSet<ProjectTask>();
+            this.Comments = new HashSet<Comment>();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -32,6 +34,7 @@ namespace TaskManagementSystem.Models
     {
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectTask> ProjectTasks { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public ApplicationDbContext()
             : base("TaskConnectionString", throwIfV1Schema: false)
