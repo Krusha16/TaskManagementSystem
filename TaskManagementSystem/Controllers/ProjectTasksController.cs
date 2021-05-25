@@ -144,14 +144,14 @@ namespace TaskManagementSystem.Controllers
 
         [Authorize(Roles = "Developer")]
         [HttpPost]
-        public ActionResult UpdateCompletedPercetage(int taskId, int percentage)
+        public ActionResult UpdateCompletedPercentage(int taskId, string percentage)
         {
             ProjectTask projectTask = db.ProjectTasks.Find(taskId);
             if (projectTask == null)
             {
                 return HttpNotFound();
             }
-            projectTask.CompletionPercentage = percentage;
+            projectTask.CompletionPercentage = int.Parse(percentage);
             if (projectTask.CompletionPercentage >= 100)
             {
                 projectTask.CompletionPercentage = 100;
@@ -164,7 +164,6 @@ namespace TaskManagementSystem.Controllers
         }
 
         [Authorize(Roles = "Developer")]
-        [HttpPost]
         public ActionResult MarkAsCompleted(int taskId)
         {
             ProjectTask projectTask = db.ProjectTasks.Find(taskId);

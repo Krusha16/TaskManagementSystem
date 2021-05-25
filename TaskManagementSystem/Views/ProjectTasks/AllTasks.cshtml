@@ -26,7 +26,9 @@
         <th>
             @Html.DisplayNameFor(model => model.IsCompleted)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comments)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -42,16 +44,74 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CompletionPercentage)
+            <br />
+            @using (Html.BeginForm("UpdateCompletedPercentage", "ProjectTasks", new { taskId = item.Id }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(modelItem => item.CompletionPercentage, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextArea("percentage")
+                            @Html.HiddenFor(modelItem => item.Id)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+            
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.IsCompleted)
+            <br />
+            <div class="col-md-10">
+                <p>Mark it completed: </p>
+                <div id="mark" class="checkbox">
+                    @Html.EditorFor(modelItem => item.IsCompleted)
+                </div>
+            </div>
+            @Html.Hidden("RedirectTo", Url.Action("MarkAsCompleted", "ProjectTasks", new { taskId = item.Id }))
         </td>
+
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @foreach (var comment in item.Comments)
+            {
+                <div class="">
+                    <p>@comment.Content - <a href="">@comment.ApplicationUser.UserName</a></p>
+                </div>
+            }
+
+            <br />
+
+            @using (Html.BeginForm("AddComment", "ProjectTasks", new { taskId = item.Id }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="textarea_container__u09m6">
+                    @Html.TextArea("content", new { @class = "" })
+                    @Html.HiddenFor(modelItem => item.Id)
+                </div>
+                <p class="add-comment_status__17kg1"></p>
+                <div>
+                    <button type="submit" class="">Add Comment</button>
+                </div>
+            }
         </td>
     </tr>
 }
 
 </table>
+
+<script>
+    document.getElementById('mark').addEventListener('click', function (e) {
+        e.preventDefault();
+        var url = $("#RedirectTo").val();
+        location.href = url;
+    });
+</script>
