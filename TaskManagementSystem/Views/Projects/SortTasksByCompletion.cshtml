@@ -1,0 +1,35 @@
+﻿@model IEnumerable<TaskManagementSystem.Models.ProjectTask>
+@{
+    ViewBag.Title = "Sort Tasks By Completion";
+}
+
+<h2>Sort Tasks By Completion</h2>
+
+@foreach (var item in Model)
+{
+<tr>
+    <div>
+
+        @Html.LabelFor(modelItem => item.ApplicationUser.Email)
+        @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
+
+    </div>
+
+    <div>
+
+        @Html.LabelFor(modelItem => item.Name)
+        @Html.DisplayFor(modelItem => item.Name)
+
+    </div>
+
+    <div>
+
+        @Html.LabelFor(modelItem => item.CompletionPercentage)
+        @Html.DisplayFor(modelItem => item.CompletionPercentage)
+
+    </div>
+</tr>
+}
+
+
+

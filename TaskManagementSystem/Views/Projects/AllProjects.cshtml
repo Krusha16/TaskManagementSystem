@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TaskManagementSystem.Models.Project>
+@{
+    ViewBag.Title = "All Projects";
+}
+
+<h2>All Projects</h2>
+
+@foreach (var item in Model)
+{
+
+    <tr>
+        <td>
+            @Html.LabelFor(modelItem => item.ApplicationUser.Email)
+            @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
+        </td>
+        <br />
+        <td>
+            @Html.LabelFor(modelItem => item.Name)
+            @*@Html.DisplayFor(modelItem => item.Name)*@
+            @Html.ActionLink(item.Name, "SortTasksByCompletion", new { projectId = item.Id })
+        </td>
+    
+        <p>
+            @Html.ActionLink("Hide Completed Tasks", "HideCompletedTasks", new { projectId = item.Id })
+        </p>
+    
+    <br />
+
+    @foreach (var task in item.ProjectTasks)
+    {
+
+        <td>
+            @Html.LabelFor(modelItem => task.Name)
+            @Html.DisplayFor(modelItem => task.Name)
+
+        </td>
+        <br />
+        <td>
+            @Html.LabelFor(modelItem => task.ApplicationUser.Email)
+            @Html.DisplayFor(modelItem => task.ApplicationUser.Email)
+
+        </td>
+        <td>
+            @Html.LabelFor(modelItem => task.IsCompleted)
+            @Html.DisplayFor(modelItem => task.IsCompleted)
+            <br />
+        </td>
+        <td>
+            @Html.LabelFor(modelItem => task.CompletionPercentage)
+            @Html.DisplayFor(modelItem => task.CompletionPercentage)
+            <br />
+        </td>
+
+    }
+    </tr>
+}

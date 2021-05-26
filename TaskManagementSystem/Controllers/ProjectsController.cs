@@ -129,5 +129,41 @@ namespace TaskManagementSystem.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [Authorize(Roles = "Project Manager")]
+        public ActionResult AllProjects()
+        {
+            var result = db.Projects.ToList();
+            return View(result);
+        }
+
+        [Authorize(Roles = "Project Manager")]
+        public ActionResult SortTasksByCompletion(int projectId)
+        {
+            Project project = db.Projects.Find(projectId);
+            if(project == null)
+            {
+                return HttpNotFound();
+            }
+
+            var sortedTasks = project.ProjectTasks.OrderByDescending(p => p.CompletionPercentage).ToList();
+            return View(sortedTasks);
+        }
+
+        [Authorize(Roles = "Project Manager")]
+        public ActionResult HideCompletedTasks(int projectId)
+        {
+            Project project = db.Projects.Find(projectId);
+            if (project == null)
+            {
+                return HttpNotFound();
+            }
+
+            var incompleteTasks = project.ProjectTasks.Where(p => p.IsCompleted == false).ToList();
+            return View("~/Views/Projects/SortTasksByCompletion.cshtml", incompleteTasks);
+
+        }
+
+
     }
 }
