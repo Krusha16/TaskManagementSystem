@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -158,6 +159,7 @@ namespace TaskManagementSystem.Controllers
                 projectTask.IsCompleted = true;
             }
             db.SaveChanges();
+            ModelState["percentage"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
             return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
@@ -198,6 +200,7 @@ namespace TaskManagementSystem.Controllers
                 db.Comments.Add(newComment);
             }
             db.SaveChanges();
+            ModelState["content"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
             return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
         }

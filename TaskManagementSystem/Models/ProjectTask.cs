@@ -14,6 +14,7 @@ namespace TaskManagementSystem.Models
 
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
+        public Priority Priority { get; set; }
 
         public int ProjectId { get; set; }
         public virtual Project Project { get; set; }

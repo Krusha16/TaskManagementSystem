@@ -18,6 +18,9 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ProjectTasks)
         </th>
     </tr>
@@ -29,6 +32,9 @@
         </td>
         <td>
             @Html.ActionLink(item.Name, "SortTasks", new { sortBy = "completetion", projectId = @item.Id })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Priority)
         </td>
         <td>
             <table class="table">
@@ -47,6 +53,9 @@
                     </th>
                     <th>
                         @Html.DisplayName("IsCompleted")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Priority")
                     </th>
                 </tr>
 
@@ -67,6 +76,9 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => task.IsCompleted)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => task.Priority)
                         </td>
                     </tr>
                 }

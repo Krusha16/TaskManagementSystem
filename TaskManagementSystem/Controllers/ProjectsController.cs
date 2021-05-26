@@ -133,7 +133,10 @@ namespace TaskManagementSystem.Controllers
         [Authorize(Roles = "Project Manager")]
         public ActionResult AllProjects()
         {
-            return View(db.Projects.ToList());
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var filteredProjects = db.Projects.Where(p => p.ApplicationUserId == userId).ToList();
+            var sortedProjects = filteredProjects.OrderByDescending(p => (int)(p.Priority)).ToList();
+            return View(sortedProjects);
         }
 
         [Authorize(Roles = "Project Manager")]
@@ -154,6 +157,9 @@ namespace TaskManagementSystem.Controllers
                 case "hideCompleted":
                     sortedTasks = sortedTasks.Where(t => t.IsCompleted == false)
                         .OrderByDescending(p => p.CompletionPercentage).ToList();
+                    break;
+                case "priority":
+                    sortedTasks = sortedTasks.OrderByDescending(p => (int)(p.Priority)).ToList();
                     break;
                 default:
                     Console.WriteLine("Default case");

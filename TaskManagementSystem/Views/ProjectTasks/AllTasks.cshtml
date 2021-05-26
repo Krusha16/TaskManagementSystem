@@ -72,18 +72,19 @@
             <br />
             <div class="col-md-10">
                 <p>Mark it completed: </p>
-                <div id="mark" class="checkbox">
-                    @Html.EditorFor(modelItem => item.IsCompleted)
+                <div class="checkbox">
+                    <a href="@Url.Action("MarkAsCompleted", "ProjectTasks" , new { taskId = item.Id })">
+                        @Html.EditorFor(modelItem => item.IsCompleted)
+                    </a>
                 </div>
             </div>
-            @Html.Hidden("RedirectTo", Url.Action("MarkAsCompleted", "ProjectTasks", new { taskId = item.Id }))
         </td>
 
         <td>
             @foreach (var comment in item.Comments)
             {
                 <div class="">
-                    <p>@comment.Content - <a href="">@comment.ApplicationUser.UserName</a></p>
+                    <p>@comment.Content</p>
                 </div>
             }
 
@@ -107,11 +108,3 @@
 }
 
 </table>
-
-<script>
-    document.getElementById('mark').addEventListener('click', function (e) {
-        e.preventDefault();
-        var url = $("#RedirectTo").val();
-        location.href = url;
-    });
-</script>
