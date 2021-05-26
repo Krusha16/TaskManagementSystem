@@ -188,6 +188,10 @@
     <Compile Include="Migrations\202105232335015_AddCommentClass.Designer.cs">
       <DependentUpon>202105232335015_AddCommentClass.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105262201041_AddPriorityField.cs" />
+    <Compile Include="Migrations\202105262201041_AddPriorityField.Designer.cs">
+      <DependentUpon>202105262201041_AddPriorityField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -266,6 +270,8 @@
     <Content Include="Views\ProjectTasks\Edit.cshtml" />
     <Content Include="Views\ProjectTasks\Index.cshtml" />
     <Content Include="Views\ProjectTasks\AllTasks.cshtml" />
+    <Content Include="Views\Projects\AllProjects.cshtml" />
+    <Content Include="Views\Projects\SortTasks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -293,6 +299,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105232335015_AddCommentClass.resx">
       <DependentUpon>202105232335015_AddCommentClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105262201041_AddPriorityField.resx">
+      <DependentUpon>202105262201041_AddPriorityField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

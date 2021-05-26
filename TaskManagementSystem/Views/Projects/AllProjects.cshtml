@@ -1,0 +1,89 @@
+﻿@model IEnumerable<TaskManagementSystem.Models.Project>
+
+@{
+    ViewBag.Title = "AllProjects";
+}
+
+<h2>AllProjects</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectTasks)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
+        </td>
+        <td>
+            @Html.ActionLink(item.Name, "SortTasks", new { sortBy = "completetion", projectId = @item.Id })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Priority)
+        </td>
+        <td>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayName("Email")
+                    </th>
+                    <th>
+                        @Html.DisplayName("ProjectName")
+                    </th>
+                    <th>
+                        @Html.DisplayName("taskName")
+                    </th>
+                    <th>
+                        @Html.DisplayName("CompletionPercentage")
+                    </th>
+                    <th>
+                        @Html.DisplayName("IsCompleted")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Priority")
+                    </th>
+                </tr>
+
+                @foreach (var task in item.ProjectTasks)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => task.ApplicationUser.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => task.Project.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => task.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => task.CompletionPercentage)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => task.IsCompleted)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => task.Priority)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </td>
+    </tr>
+}
+</table>
