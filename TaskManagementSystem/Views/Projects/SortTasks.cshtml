@@ -1,0 +1,57 @@
+﻿@model TaskManagementSystem.Models.Project
+
+@{
+    ViewBag.Title = "SortTasksByCompletion";
+}
+
+<h2>SortTasksByCompletion</h2>
+@Html.DisplayNameFor(model => model.ApplicationUser.Email) : @Html.DisplayFor(model => model.ApplicationUser.Email)
+<br />
+@Html.DisplayNameFor(model => model.Name) : @Html.DisplayFor(model => model.Name)
+<br />
+<button>
+    @Html.ActionLink("Hide Completed", "SortTasks", new { sortBy = "hideCompleted", projectId = Model.Id })
+</button>
+<br /><br />
+
+@Html.DisplayNameFor(model => model.ProjectTasks)
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Email")
+        </th>
+        <th>
+            @Html.DisplayName("ProjectName")
+        </th>
+        <th>
+            @Html.DisplayName("taskName")
+        </th>
+        <th>
+            @Html.DisplayName("CompletionPercentage")
+        </th>
+        <th>
+            @Html.DisplayName("IsCompleted")
+        </th>
+    </tr>
+
+    @foreach (var task in Model.ProjectTasks)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => task.ApplicationUser.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => task.Project.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => task.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => task.CompletionPercentage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => task.IsCompleted)
+            </td>
+        </tr>
+    }
+</table>
