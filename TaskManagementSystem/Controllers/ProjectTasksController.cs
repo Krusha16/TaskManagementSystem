@@ -139,6 +139,8 @@ namespace TaskManagementSystem.Controllers
         public ActionResult AllTasks()
         {
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            ApplicationUser applicationUser = db.Users.Find(userId);
+            ViewBag.NotificationCount = applicationUser.Notifications.Count;
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
             return View(filteredTasks);
         }
@@ -203,6 +205,14 @@ namespace TaskManagementSystem.Controllers
             ModelState["content"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
             return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
+        }
+
+        [Authorize(Roles = "Developer")]
+        public ActionResult AllNotifications()
+        {
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            ApplicationUser applicationUser = db.Users.Find(userId);
+            return View(applicationUser.Notifications.ToList());
         }
     }
 }

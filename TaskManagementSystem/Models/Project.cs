@@ -19,6 +19,7 @@ namespace TaskManagementSystem.Models
         public string Name { get; set; }
         public string ApplicationUserId { get; set; }
         public Priority Priority { get; set; }
+        public DateTime Deadline { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual ICollection<ProjectTask> ProjectTasks { get; set; }
