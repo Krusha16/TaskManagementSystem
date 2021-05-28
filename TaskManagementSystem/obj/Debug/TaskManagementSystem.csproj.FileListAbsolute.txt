@@ -112,3 +112,4 @@ D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.pdb
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.csprojAssemblyReference.cache
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddPriorityField.resources
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddNotificationClassAndDealineToProjectAndTask.resources
+D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddProjectAndTaskToNotification.resources

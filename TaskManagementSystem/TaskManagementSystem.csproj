@@ -197,6 +197,10 @@
     <Compile Include="Migrations\202105271947287_AddNotificationClassAndDealineToProjectAndTask.Designer.cs">
       <DependentUpon>202105271947287_AddNotificationClassAndDealineToProjectAndTask.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105282153295_AddProjectAndTaskToNotification.cs" />
+    <Compile Include="Migrations\202105282153295_AddProjectAndTaskToNotification.Designer.cs">
+      <DependentUpon>202105282153295_AddProjectAndTaskToNotification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -284,6 +288,7 @@
     <Content Include="Views\Notifications\Edit.cshtml" />
     <Content Include="Views\Notifications\Index.cshtml" />
     <Content Include="Views\ProjectTasks\AllNotifications.cshtml" />
+    <Content Include="Views\ProjectTasks\UnFinishedPassedDeadline.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -317,6 +322,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105271947287_AddNotificationClassAndDealineToProjectAndTask.resx">
       <DependentUpon>202105271947287_AddNotificationClassAndDealineToProjectAndTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105282153295_AddProjectAndTaskToNotification.resx">
+      <DependentUpon>202105282153295_AddProjectAndTaskToNotification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

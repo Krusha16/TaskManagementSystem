@@ -140,9 +140,34 @@ namespace TaskManagementSystem.Controllers
         {
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             ApplicationUser applicationUser = db.Users.Find(userId);
+            UpdateNotifications();
             ViewBag.NotificationCount = applicationUser.Notifications.Count;
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
             return View(filteredTasks);
+        }
+
+        [Authorize(Roles = "Developer")]
+        public void UpdateNotifications()
+        {
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            ApplicationUser applicationUser = db.Users.Find(userId);
+            foreach(var task in applicationUser.ProjectTasks)
+            {
+                if(!task.IsCompleted && task.Deadline < DateTime.Now.AddDays(1))
+                {
+                    Notification newNotification = new Notification();
+                    newNotification.ApplicationUserId = userId;
+                    newNotification.Content = "Only one day is left to pass the deadline of your task - " + task.Name;
+                    newNotification.ProjectTaskId = task.Id;
+                    newNotification.DateCreated = DateTime.Now;
+                    var filteredNotifications = db.Notifications.Where(n => n.ProjectTaskId == task.Id);
+                    if(filteredNotifications == null)
+                    {
+                        db.Notifications.Add(newNotification);
+                    }
+                }
+            }
+            db.SaveChanges();
         }
 
         [Authorize(Roles = "Developer")]
@@ -213,6 +238,25 @@ namespace TaskManagementSystem.Controllers
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             ApplicationUser applicationUser = db.Users.Find(userId);
             return View(applicationUser.Notifications.ToList());
+        }
+
+        [Authorize(Roles = "Project Manager")]
+        public ActionResult UnFinishedPassedDeadline()
+        {
+            List<ProjectTask> sortedTasks = new List<ProjectTask>();
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var filteredProjects = db.Projects.Where(p => p.ApplicationUserId == userId).ToList();
+            foreach (var project in filteredProjects)
+            {
+                foreach(var task in project.ProjectTasks)
+                {
+                    if(!task.IsCompleted && task.Deadline < DateTime.Now)
+                    {
+                        sortedTasks.Add(task);
+                    }
+                }
+            }
+            return View(sortedTasks);
         }
     }
 }
