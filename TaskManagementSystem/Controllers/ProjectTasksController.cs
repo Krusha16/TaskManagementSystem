@@ -54,8 +54,9 @@ namespace TaskManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.ProjectTasks.Add(projectTask);
-                db.SaveChanges();
+                /*db.ProjectTasks.Add(projectTask);
+                db.SaveChanges();*/
+                ProjectTaskHelper.AddProjectTask(projectTask);
                 return RedirectToAction("Index");
             }
 
@@ -71,7 +72,8 @@ namespace TaskManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProjectTask projectTask = db.ProjectTasks.Find(id);
+            /*ProjectTask projectTask = db.ProjectTasks.Find(id);*/
+            ProjectTask projectTask = ProjectTaskHelper.FindProjectTask(id);
             if (projectTask == null)
             {
                 return HttpNotFound();
@@ -106,7 +108,8 @@ namespace TaskManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ProjectTask projectTask = db.ProjectTasks.Find(id);
+            /*ProjectTask projectTask = db.ProjectTasks.Find(id);*/
+            ProjectTask projectTask = ProjectTaskHelper.FindProjectTask(id);
             if (projectTask == null)
             {
                 return HttpNotFound();
@@ -119,9 +122,10 @@ namespace TaskManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            ProjectTask projectTask = db.ProjectTasks.Find(id);
+            /*ProjectTask projectTask = db.ProjectTasks.Find(id);
             db.ProjectTasks.Remove(projectTask);
-            db.SaveChanges();
+            db.SaveChanges();*/
+            ProjectTaskHelper.DeleteProjectTask(id);
             return RedirectToAction("Index");
         }
 
@@ -200,6 +204,32 @@ namespace TaskManagementSystem.Controllers
             db.SaveChanges();
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
             return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
+        }
+
+        public ActionResult AssignDeveloper(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ProjectTask projectTask = ProjectTaskHelper.FindProjectTask(id);
+            if (projectTask == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Email");
+            return View(projectTask);
+        }
+
+        [HttpPost]
+        public ActionResult AssignDeveloper(int id, string ApplicationUserId)
+        {
+            if (ModelState.IsValid)
+            {
+                ProjectTaskHelper.AddDeveloper(id, ApplicationUserId);
+            }
+            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Email");
+            return RedirectToAction("Details", new { id });
         }
     }
 }
