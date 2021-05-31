@@ -38,9 +38,12 @@ namespace TaskManagementSystem.Controllers
         }
 
         // GET: Projects/Create
+        [Authorize(Roles = "Project Manager")]
         public ActionResult Create()
         {
-            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Email");
+            var roleId = db.Roles.Where(r => r.Name == "Project Manager").First().Id;
+            var users = db.Users.Where(x => x.Roles.Select(y => y.RoleId).Contains(roleId)).ToList();
+            ViewBag.ApplicationUserId = new SelectList(users, "Id", "Email");
             return View();
         }
 
@@ -53,8 +56,9 @@ namespace TaskManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Projects.Add(project);
-                db.SaveChanges();
+                /*db.Projects.Add(project);
+                db.SaveChanges();*/
+                ProjectHelper.AddProject(project);
                 return RedirectToAction("Index");
             }
 
@@ -69,12 +73,16 @@ namespace TaskManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
+            /*Project project = db.Projects.Find(id);*/
+            Project project = ProjectHelper.FindProject(id);
             if (project == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Email", project.ApplicationUserId);
+            //ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Email", project.ApplicationUserId);
+            var roleId = db.Roles.Where(r => r.Name == "Project Manager").First().Id;
+            var users = db.Users.Where(x => x.Roles.Select(y => y.RoleId).Contains(roleId)).ToList();
+            ViewBag.ApplicationUserId = new SelectList(users, "Id", "Email", project.ApplicationUserId);
             return View(project);
         }
 
@@ -102,7 +110,8 @@ namespace TaskManagementSystem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Project project = db.Projects.Find(id);
+            /*Project project = db.Projects.Find(id);*/
+            Project project = ProjectHelper.FindProject(id);
             if (project == null)
             {
                 return HttpNotFound();
@@ -115,9 +124,10 @@ namespace TaskManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Project project = db.Projects.Find(id);
-            db.Projects.Remove(project);
-            db.SaveChanges();
+            //Project project = db.Projects.Find(id);
+            //db.Projects.Remove(project);
+            //db.SaveChanges();
+            ProjectHelper.DeleteProject(id);
             return RedirectToAction("Index");
         }
 
