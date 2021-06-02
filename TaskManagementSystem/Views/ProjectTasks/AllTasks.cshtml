@@ -9,9 +9,10 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<button>
-    @Html.ActionLink("Notifications", "AllNotifications") (@ViewBag.NotificationCount)
-</button>
+<a href="@Url.Action("AllNotifications", "Notifications")">
+    Notifications(@ViewBag.NotificationCount)
+</a>
+<br />
 <table class="table">
     <tr>
         <th>

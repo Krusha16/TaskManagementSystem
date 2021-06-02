@@ -292,6 +292,7 @@
     <Content Include="Views\ProjectTasks\AllNotifications.cshtml" />
     <Content Include="Views\ProjectTasks\UnFinishedPassedDeadline.cshtml" />
     <Content Include="Views\ProjectTasks\AssignDeveloper.cshtml" />
+    <Content Include="Views\Notifications\AllNotifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -144,9 +144,34 @@ namespace TaskManagementSystem.Controllers
         public ActionResult AllProjects()
         {
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            ApplicationUser applicationUser = db.Users.Find(userId);
+            UpdateNotificationsForProjects();
+            ViewBag.NotificationCount = applicationUser.Notifications.Count;
             var filteredProjects = db.Projects.Where(p => p.ApplicationUserId == userId).ToList();
             var sortedProjects = filteredProjects.OrderByDescending(p => (int)(p.Priority)).ToList();
             return View(sortedProjects);
+        }
+
+        [Authorize(Roles = "Project Manager")]
+        public void UpdateNotificationsForProjects()
+        {
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            ApplicationUser applicationUser = db.Users.Find(userId);
+            foreach (var project in applicationUser.Projects)
+            {
+                bool UnFinished = project.ProjectTasks.Any(t => t.IsCompleted == false);
+                var filteredNotifications = db.Notifications.Where(n => n.ProjectId == project.Id).ToList();
+                if (UnFinished && project.Deadline < DateTime.Now && filteredNotifications.Count == 0)
+                {
+                    Notification newNotification = new Notification();
+                    newNotification.ApplicationUserId = userId;
+                    newNotification.Content = project.Name + " : Project passed a deadline with one or more unfinished tasks.";
+                    newNotification.ProjectId = project.Id;
+                    newNotification.DateCreated = DateTime.Now;
+                    db.Notifications.Add(newNotification);
+                }
+            }
+            db.SaveChanges();
         }
 
         [Authorize(Roles = "Project Manager")]

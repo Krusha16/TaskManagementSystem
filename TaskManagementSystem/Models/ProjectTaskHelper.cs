@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -34,6 +35,24 @@ namespace TaskManagementSystem.Models
             ProjectTask projectTask = FindProjectTask(id);
             projectTask.ApplicationUserId = userId;
             db.Entry(projectTask).State = EntityState.Modified;
+            db.SaveChanges();
+        }
+
+        public static void UpdateNotifications(ApplicationUser applicationUser)
+        {
+            foreach (var task in applicationUser.ProjectTasks)
+            {
+                var filteredNotifications = db.Notifications.Where(n => n.ProjectTaskId == task.Id).ToList();
+                if (!task.IsCompleted && task.Deadline < DateTime.Now.AddDays(1) && filteredNotifications.Count == 0)
+                {
+                    Notification newNotification = new Notification();
+                    newNotification.ApplicationUserId = applicationUser.Id;
+                    newNotification.Content = "Only one day is left to pass the deadline of your task - " + task.Name;
+                    newNotification.ProjectTaskId = task.Id;
+                    newNotification.DateCreated = DateTime.Now;
+                    db.Notifications.Add(newNotification);
+                }
+            }
             db.SaveChanges();
         }
     }

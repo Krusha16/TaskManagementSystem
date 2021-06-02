@@ -27,5 +27,20 @@ namespace TaskManagementSystem.Models
             db.Projects.Remove(project);
             db.SaveChanges();
         }
+
+        public static void UpdateNotifications(Project project)
+        {
+            var unFinished = project.ProjectTasks.Where(t => t.IsCompleted == false);
+            if (unFinished != null)
+            {
+                Notification newNotification = new Notification();
+                newNotification.ApplicationUserId = project.ApplicationUserId;
+                newNotification.Content = project.Name + " : Project is Completed";
+                newNotification.ProjectId = project.Id;
+                newNotification.DateCreated = DateTime.Now;
+                db.Notifications.Add(newNotification);
+                db.SaveChanges();
+            } 
+        }
     }
 }

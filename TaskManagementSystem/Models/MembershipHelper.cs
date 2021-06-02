@@ -59,5 +59,16 @@ namespace TaskManagementSystem.Models
         {
             return userManager.GetRoles(UserId).ToList();
         }
+
+        public static void UpdateNotificationsForProjectManager(ProjectTask projectTask)
+        {
+            Notification newNotification = new Notification();
+            newNotification.ApplicationUserId = projectTask.Project.ApplicationUserId;
+            newNotification.Content = projectTask.Name + " Task of " + projectTask.Project.Name + "Project is Completed";
+            newNotification.ProjectTaskId = projectTask.Id;
+            newNotification.DateCreated = DateTime.Now;
+            db.Notifications.Add(newNotification);
+            db.SaveChanges();
+        }
     }
 }

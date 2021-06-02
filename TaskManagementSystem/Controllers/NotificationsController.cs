@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -14,10 +15,18 @@ namespace TaskManagementSystem.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize(Roles = "Developer, Project Manager")]
+        public ActionResult AllNotifications()
+        {
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            ApplicationUser applicationUser = db.Users.Find(userId);
+            return View(applicationUser.Notifications.ToList());
+        }
+
         // GET: Notifications
         public ActionResult Index()
         {
-            var notifications = db.Notifications.Include(n => n.ApplicationUser);
+            var notifications = db.Notifications.Include(n => n.ApplicationUser).Include(n => n.Project).Include(n => n.ProjectTask);
             return View(notifications.ToList());
         }
 
@@ -40,6 +49,8 @@ namespace TaskManagementSystem.Controllers
         public ActionResult Create()
         {
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Email");
+            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name");
+            ViewBag.ProjectTaskId = new SelectList(db.ProjectTasks, "Id", "Name");
             return View();
         }
 
@@ -48,7 +59,7 @@ namespace TaskManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Content,DateCreated,ApplicationUserId")] Notification notification)
+        public ActionResult Create([Bind(Include = "Id,Content,DateCreated,ApplicationUserId,ProjectId,ProjectTaskId")] Notification notification)
         {
             if (ModelState.IsValid)
             {
@@ -58,6 +69,8 @@ namespace TaskManagementSystem.Controllers
             }
 
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Email", notification.ApplicationUserId);
+            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", notification.ProjectId);
+            ViewBag.ProjectTaskId = new SelectList(db.ProjectTasks, "Id", "Name", notification.ProjectTaskId);
             return View(notification);
         }
 
@@ -74,6 +87,8 @@ namespace TaskManagementSystem.Controllers
                 return HttpNotFound();
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Email", notification.ApplicationUserId);
+            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", notification.ProjectId);
+            ViewBag.ProjectTaskId = new SelectList(db.ProjectTasks, "Id", "Name", notification.ProjectTaskId);
             return View(notification);
         }
 
@@ -82,7 +97,7 @@ namespace TaskManagementSystem.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Content,DateCreated,ApplicationUserId")] Notification notification)
+        public ActionResult Edit([Bind(Include = "Id,Content,DateCreated,ApplicationUserId,ProjectId,ProjectTaskId")] Notification notification)
         {
             if (ModelState.IsValid)
             {
@@ -91,6 +106,8 @@ namespace TaskManagementSystem.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Email", notification.ApplicationUserId);
+            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", notification.ProjectId);
+            ViewBag.ProjectTaskId = new SelectList(db.ProjectTasks, "Id", "Name", notification.ProjectTaskId);
             return View(notification);
         }
 
