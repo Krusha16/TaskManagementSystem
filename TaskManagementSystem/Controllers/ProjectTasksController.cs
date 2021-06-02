@@ -170,34 +170,10 @@ namespace TaskManagementSystem.Controllers
         {
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             ApplicationUser applicationUser = db.Users.Find(userId);
-            UpdateNotifications();
+            ProjectTaskHelper.UpdateNotifications(applicationUser);
             ViewBag.NotificationCount = applicationUser.Notifications.Count;
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
             return View(filteredTasks);
-        }
-
-        [Authorize(Roles = "Developer")]
-        public void UpdateNotifications()
-        {
-            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            ApplicationUser applicationUser = db.Users.Find(userId);
-            foreach(var task in applicationUser.ProjectTasks)
-            {
-                if(!task.IsCompleted && task.Deadline < DateTime.Now.AddDays(1))
-                {
-                    Notification newNotification = new Notification();
-                    newNotification.ApplicationUserId = userId;
-                    newNotification.Content = "Only one day is left to pass the deadline of your task - " + task.Name;
-                    newNotification.ProjectTaskId = task.Id;
-                    newNotification.DateCreated = DateTime.Now;
-                    var filteredNotifications = db.Notifications.Where(n => n.ProjectTaskId == task.Id);
-                    if(filteredNotifications == null)
-                    {
-                        db.Notifications.Add(newNotification);
-                    }
-                }
-            }
-            db.SaveChanges();
         }
 
         [Authorize(Roles = "Developer")]
@@ -205,17 +181,15 @@ namespace TaskManagementSystem.Controllers
         public ActionResult UpdateCompletedPercentage(int taskId, string percentage)
         {
             ProjectTask projectTask = db.ProjectTasks.Find(taskId);
-            if (projectTask == null)
-            {
-                return HttpNotFound();
-            }
             projectTask.CompletionPercentage = int.Parse(percentage);
             if (projectTask.CompletionPercentage >= 100)
             {
                 projectTask.CompletionPercentage = 100;
                 projectTask.IsCompleted = true;
+                MembershipHelper.UpdateNotificationsForProjectManager(projectTask);
             }
             db.SaveChanges();
+            ProjectHelper.UpdateNotifications(projectTask.Project);
             ModelState["percentage"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
@@ -233,6 +207,7 @@ namespace TaskManagementSystem.Controllers
             projectTask.CompletionPercentage = 100;
             projectTask.IsCompleted = true;
             db.SaveChanges();
+            MembershipHelper.UpdateNotificationsForProjectManager(projectTask);
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
             return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
@@ -244,10 +219,6 @@ namespace TaskManagementSystem.Controllers
         {
             ProjectTask projectTask = db.ProjectTasks.Find(taskId);
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            if (projectTask == null)
-            {
-                return HttpNotFound();
-            }
             if (projectTask.IsCompleted)
             {
                 Comment newComment = new Comment();
@@ -260,14 +231,6 @@ namespace TaskManagementSystem.Controllers
             ModelState["content"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
             return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
-        }
-
-        [Authorize(Roles = "Developer")]
-        public ActionResult AllNotifications()
-        {
-            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            ApplicationUser applicationUser = db.Users.Find(userId);
-            return View(applicationUser.Notifications.ToList());
         }
 
         [Authorize(Roles = "Project Manager")]
