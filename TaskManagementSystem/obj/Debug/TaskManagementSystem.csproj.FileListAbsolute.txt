@@ -113,3 +113,4 @@ D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.csprojA
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddPriorityField.resources
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddNotificationClassAndDealineToProjectAndTask.resources
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddProjectAndTaskToNotification.resources
+D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddIsOpendFieldToNotification.resources
