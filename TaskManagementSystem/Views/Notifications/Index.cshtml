@@ -1,24 +1,15 @@
 ﻿@model IEnumerable<TaskManagementSystem.Models.Notification>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "AllNotifications";
 }
 
-<h2>Index</h2>
+<h2>AllNotifications</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.ApplicationUser.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Project.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProjectTask.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Content)
@@ -35,13 +26,10 @@
             @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Project.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProjectTask.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
+            Open Notification :
+            <a href="@Url.Action("OpenNotification", "Notifications", new { id=item.Id })">
+                @Html.DisplayFor(modelItem => item.Content)
+            </a>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DateCreated)

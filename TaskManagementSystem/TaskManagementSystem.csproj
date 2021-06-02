@@ -201,6 +201,10 @@
     <Compile Include="Migrations\202105282153295_AddProjectAndTaskToNotification.Designer.cs">
       <DependentUpon>202105282153295_AddProjectAndTaskToNotification.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106021842519_AddIsOpendFieldToNotification.cs" />
+    <Compile Include="Migrations\202106021842519_AddIsOpendFieldToNotification.Designer.cs">
+      <DependentUpon>202106021842519_AddIsOpendFieldToNotification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -284,15 +288,11 @@
     <Content Include="Views\ProjectTasks\AllTasks.cshtml" />
     <Content Include="Views\Projects\AllProjects.cshtml" />
     <Content Include="Views\Projects\SortTasks.cshtml" />
-    <Content Include="Views\Notifications\Create.cshtml" />
-    <Content Include="Views\Notifications\Delete.cshtml" />
-    <Content Include="Views\Notifications\Details.cshtml" />
-    <Content Include="Views\Notifications\Edit.cshtml" />
-    <Content Include="Views\Notifications\Index.cshtml" />
     <Content Include="Views\ProjectTasks\AllNotifications.cshtml" />
     <Content Include="Views\ProjectTasks\UnFinishedPassedDeadline.cshtml" />
     <Content Include="Views\ProjectTasks\AssignDeveloper.cshtml" />
-    <Content Include="Views\Notifications\AllNotifications.cshtml" />
+    <Content Include="Views\Notifications\Index.cshtml" />
+    <Content Include="Views\Notifications\OpenNotification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -329,6 +329,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105282153295_AddProjectAndTaskToNotification.resx">
       <DependentUpon>202105282153295_AddProjectAndTaskToNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106021842519_AddIsOpendFieldToNotification.resx">
+      <DependentUpon>202106021842519_AddIsOpendFieldToNotification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
