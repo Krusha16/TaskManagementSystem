@@ -55,5 +55,26 @@ namespace TaskManagementSystem.Models
             }
             db.SaveChanges();
         }
+
+        public static void UpdateNotificationsForProjects()
+        {
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            ApplicationUser applicationUser = db.Users.Find(userId);
+            foreach (var project in applicationUser.Projects)
+            {
+                bool UnFinished = project.ProjectTasks.Any(t => t.IsCompleted == false);
+                var filteredNotifications = db.Notifications.Where(n => n.ProjectId == project.Id).ToList();
+                if (UnFinished && project.Deadline < DateTime.Now && filteredNotifications.Count == 0)
+                {
+                    Notification newNotification = new Notification();
+                    newNotification.ApplicationUserId = userId;
+                    newNotification.Content = project.Name + " : Project passed a deadline with one or more unfinished tasks.";
+                    newNotification.ProjectId = project.Id;
+                    newNotification.DateCreated = DateTime.Now;
+                    db.Notifications.Add(newNotification);
+                }
+            }
+            db.SaveChanges();
+        }
     }
 }
