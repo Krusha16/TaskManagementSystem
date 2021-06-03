@@ -201,6 +201,10 @@
     <Compile Include="Migrations\202105282153295_AddProjectAndTaskToNotification.Designer.cs">
       <DependentUpon>202105282153295_AddProjectAndTaskToNotification.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106030303355_AddBudgetAndSalaryProperties.cs" />
+    <Compile Include="Migrations\202106030303355_AddBudgetAndSalaryProperties.Designer.cs">
+      <DependentUpon>202106030303355_AddBudgetAndSalaryProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -293,10 +297,15 @@
     <Content Include="Views\ProjectTasks\UnFinishedPassedDeadline.cshtml" />
     <Content Include="Views\ProjectTasks\AssignDeveloper.cshtml" />
     <Content Include="Views\Notifications\AllNotifications.cshtml" />
+    <Content Include="Views\Admins\SetSalary.cshtml" />
+    <Content Include="Views\Admins\ShowAllUsers.cshtml" />
+    <Content Include="Views\Projects\SetBudget.cshtml" />
+    <Content Include="Views\Projects\SetFinishDate.cshtml" />
+    <Content Include="Views\Projects\SetStartDate.cshtml" />
+    <Content Include="Views\Projects\GetProjectsExceededBudget.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admins\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -329,6 +338,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105282153295_AddProjectAndTaskToNotification.resx">
       <DependentUpon>202105282153295_AddProjectAndTaskToNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106030303355_AddBudgetAndSalaryProperties.resx">
+      <DependentUpon>202106030303355_AddBudgetAndSalaryProperties.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

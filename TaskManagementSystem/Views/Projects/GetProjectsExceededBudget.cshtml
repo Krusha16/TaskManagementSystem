@@ -1,18 +1,10 @@
 ﻿@model IEnumerable<TaskManagementSystem.Models.Project>
-
 @{
-    ViewBag.Title = "AllProjects";
+    ViewBag.Title = "GetProjectsExceededBudget";
 }
 
-<h2>AllProjects</h2>
+<h2>Projects Exceeded Budget</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<a href="@Url.Action("AllNotifications", "Notifications")">
-    Notifications(@ViewBag.NotificationCount)
-</a>
-<br />
 <table class="table">
     <tr>
         <th>
@@ -23,15 +15,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Priority)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Deadline)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FinishDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ProjectTasks)
@@ -49,21 +32,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Priority)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Deadline)
-            </td>
-            <td>
-                @if (item.StartDate == null)
-                {<p>—</p> }
-                else
-                { @Html.DisplayFor(modelItem => item.StartDate)}
-            </td>
-            <td>
-                @if (item.FinishDate == null)
-                {<p>—</p> }
-                else
-                { @Html.DisplayFor(modelItem => item.FinishDate)}
             </td>
             <td>
                 <table class="table">

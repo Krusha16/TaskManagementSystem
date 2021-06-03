@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -52,6 +53,38 @@ namespace TaskManagementSystem.Controllers
             var newrole = db.Roles.Where(r => r.Id == role).Select(r => r.Name);
             MembershipHelper.AddUserToRole(UserId, newrole.FirstOrDefault());
             return RedirectToAction("AllRoles");
+        }
+
+        public ActionResult SetSalary(string userId)
+        {
+            ViewBag.UserId = userId;
+            ViewBag.UserName = db.Users.Find(userId).UserName;
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SetSalary(string userId, double salary)
+        {
+            var user = db.Users.Find(userId);
+            if (user != null)
+            {
+                user.Salary = salary;
+            }
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ShowAllUsers");
+            }
+            ViewBag.UserId = userId;
+            ViewBag.UserName = db.Users.Find(userId).UserName;
+            return RedirectToAction("ShowAllUsers");
+        }
+
+        public ActionResult ShowAllUsers()
+        {
+            var users = db.Users.ToList();
+            return View(users);
         }
     }
 }

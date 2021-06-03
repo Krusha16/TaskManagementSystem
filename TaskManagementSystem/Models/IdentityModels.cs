@@ -14,6 +14,7 @@ namespace TaskManagementSystem.Models
         public virtual ICollection<ProjectTask> ProjectTasks { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Notification> Notifications { get; set; }
+        public double Salary { get; set; }
 
         public ApplicationUser()
         {
@@ -21,6 +22,7 @@ namespace TaskManagementSystem.Models
             this.ProjectTasks = new HashSet<ProjectTask>();
             this.Comments = new HashSet<Comment>();
             this.Notifications = new HashSet<Notification>();
+            this.Salary = 0;
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
