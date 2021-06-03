@@ -171,6 +171,8 @@ namespace TaskManagementSystem.Controllers
             ProjectHelper.UpdateNotifications(projectTask.Project);
             ModelState["percentage"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            ApplicationUser applicationUser = db.Users.Find(userId);
+            ViewBag.NotificationCount = applicationUser.Notifications.Count;
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
             return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
         }
@@ -188,6 +190,8 @@ namespace TaskManagementSystem.Controllers
             db.SaveChanges();
             MembershipHelper.UpdateNotificationsForProjectManager(projectTask);
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            ApplicationUser applicationUser = db.Users.Find(userId);
+            ViewBag.NotificationCount = applicationUser.Notifications.Count;
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
             return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
         }
@@ -198,6 +202,8 @@ namespace TaskManagementSystem.Controllers
         {
             ProjectTask projectTask = db.ProjectTasks.Find(taskId);
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            ApplicationUser applicationUser = db.Users.Find(userId);
+            ViewBag.NotificationCount = applicationUser.Notifications.Count;
             ProjectTaskHelper.AddUrgentNote(taskId, content, userId, flag);
             if(flag == "Urgent")
                 ProjectTaskHelper.UrgentNotificationToProjectManager(projectTask);
