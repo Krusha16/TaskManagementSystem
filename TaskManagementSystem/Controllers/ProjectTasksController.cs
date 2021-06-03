@@ -194,19 +194,13 @@ namespace TaskManagementSystem.Controllers
 
         [Authorize(Roles = "Developer")]
         [HttpPost]
-        public ActionResult AddComment(int taskId, string content)
+        public ActionResult AddCommentOrUrgentNote(int taskId, string content, string flag)
         {
             ProjectTask projectTask = db.ProjectTasks.Find(taskId);
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            if (projectTask.IsCompleted)
-            {
-                Comment newComment = new Comment();
-                newComment.Content = content;
-                newComment.ProjectTaskId = taskId;
-                newComment.ApplicationUserId = userId;
-                db.Comments.Add(newComment);
-            }
-            db.SaveChanges();
+            ProjectTaskHelper.AddUrgentNote(taskId, content, userId, flag);
+            if(flag == "Urgent")
+                ProjectTaskHelper.UrgentNotificationToProjectManager(projectTask);
             ModelState["content"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
             return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);

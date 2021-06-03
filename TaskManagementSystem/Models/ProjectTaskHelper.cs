@@ -76,5 +76,28 @@ namespace TaskManagementSystem.Models
             }
             db.SaveChanges();
         }
+
+        public static void AddUrgentNote(int taskId, string content, string userId, string flag)
+        {
+            Comment newComment = new Comment();
+            newComment.Content = content;
+            newComment.ProjectTaskId = taskId;
+            newComment.ApplicationUserId = userId;
+            if (flag == "Urgent")
+                newComment.Flag = Flag.Urgent;
+            db.Comments.Add(newComment);
+            db.SaveChanges();
+        }
+
+        public static void UrgentNotificationToProjectManager(ProjectTask projectTask)
+        {
+            Notification newNotification = new Notification();
+            newNotification.ApplicationUserId = projectTask.Project.ApplicationUserId;
+            newNotification.Content = projectTask.Name + " a Task of " + projectTask.Project.Name + " has An Urgent Note to it";
+            newNotification.ProjectTaskId = projectTask.Id;
+            newNotification.DateCreated = DateTime.Now;
+            db.Notifications.Add(newNotification);
+            db.SaveChanges();
+        }
     }
 }
