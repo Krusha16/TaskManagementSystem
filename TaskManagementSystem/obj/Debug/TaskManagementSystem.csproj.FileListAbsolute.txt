@@ -114,3 +114,4 @@ D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrati
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddNotificationClassAndDealineToProjectAndTask.resources
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddProjectAndTaskToNotification.resources
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddIsOpendFieldToNotification.resources
+D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddFlagFieldToComment.resources

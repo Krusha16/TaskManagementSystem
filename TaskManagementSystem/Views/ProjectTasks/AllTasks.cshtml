@@ -85,23 +85,50 @@
             @foreach (var comment in item.Comments)
             {
                 <div class="">
-                    <p>@comment.Content</p>
+                    @if (comment.Flag == TaskManagementSystem.Models.Flag.Urgent)
+                    {
+                        <p>Urget: @comment.Content</p>
+                    }
+                    else
+                    {
+                        <p>@comment.Content</p>
+                    }
                 </div>
             }
 
             <br />
-
-            @using (Html.BeginForm("AddComment", "ProjectTasks", new { taskId = item.Id }))
+            @if (item.IsCompleted)
             {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="textarea_container__u09m6">
-                    @Html.TextArea("content", new { @class = "" })
-                    @Html.HiddenFor(modelItem => item.Id)
-                </div>
-                <p class="add-comment_status__17kg1"></p>
+                using (Html.BeginForm("AddCommentOrUrgentNote", "ProjectTasks", new { taskId = item.Id, flag = "None" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="">
+                        @Html.TextArea("content", new { @class = "" })
+                        @Html.HiddenFor(modelItem => item.Id)
+                    </div>
+                    <div>
+                        <button type="submit" class="">Add Comment</button>
+                    </div>
+                }
+
+                <br />
+            }
+            else
+            {
                 <div>
-                    <button type="submit" class="">Add Comment</button>
+                    @using (Html.BeginForm("AddCommentOrUrgentNote", "ProjectTasks", new { taskId = item.Id, flag = "Urgent" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="">
+                            @Html.TextArea("content", new { @class = "" })
+                            @Html.HiddenFor(modelItem => item.Id)
+                        </div>
+                        <div>
+                            <button type="submit" class="">Add Urgent Note</button>
+                        </div>
+                    }
                 </div>
             }
         </td>

@@ -5,6 +5,11 @@ using System.Web;
 
 namespace TaskManagementSystem.Models
 {
+    public enum Flag
+    {
+        None,
+        Urgent
+    }
     public class Comment
     {
         public int Id { get; set; }
@@ -13,5 +18,6 @@ namespace TaskManagementSystem.Models
         public virtual ProjectTask ProjectTask { get; set; }
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
+        public Flag Flag { get; set; }
     }
 }
