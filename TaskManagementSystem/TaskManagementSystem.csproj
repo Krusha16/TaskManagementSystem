@@ -205,6 +205,10 @@
     <Compile Include="Migrations\202106021842519_AddIsOpendFieldToNotification.Designer.cs">
       <DependentUpon>202106021842519_AddIsOpendFieldToNotification.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106030101397_AddFlagFieldToComment.cs" />
+    <Compile Include="Migrations\202106030101397_AddFlagFieldToComment.Designer.cs">
+      <DependentUpon>202106030101397_AddFlagFieldToComment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -332,6 +336,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106021842519_AddIsOpendFieldToNotification.resx">
       <DependentUpon>202106021842519_AddIsOpendFieldToNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106030101397_AddFlagFieldToComment.resx">
+      <DependentUpon>202106030101397_AddFlagFieldToComment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

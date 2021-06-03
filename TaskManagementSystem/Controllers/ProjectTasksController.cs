@@ -230,5 +230,28 @@ namespace TaskManagementSystem.Controllers
             }
             return View(sortedTasks);
         }
+
+        [Authorize(Roles = "Developer")]
+        [HttpPost]
+        public ActionResult UrgentNoteToTask(int taskId, string content)
+        {
+            ProjectTask projectTask = db.ProjectTasks.Find(taskId);
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            if (!projectTask.IsCompleted && projectTask.CompletionPercentage < 100)
+            {
+                Comment newComment = new Comment();
+                newComment.Content = content;
+                newComment.ProjectTaskId = taskId;
+                newComment.ApplicationUserId = userId;
+                newComment.Flag = Flag.Urgent;
+                db.Comments.Add(newComment);
+            }
+            db.SaveChanges();
+
+            MembershipHelper.UrgentNotificationToProjectManager(projectTask);
+            ModelState["content"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
+            var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
+            return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
+        }
     }
 }

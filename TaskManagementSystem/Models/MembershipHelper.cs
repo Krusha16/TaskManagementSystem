@@ -70,5 +70,17 @@ namespace TaskManagementSystem.Models
             db.Notifications.Add(newNotification);
             db.SaveChanges();
         }
+
+        public static void UrgentNotificationToProjectManager(ProjectTask projectTask)
+        {
+            Notification newNotification = new Notification();
+            newNotification.ApplicationUserId = projectTask.ApplicationUserId;
+            newNotification.Content = projectTask.Name + " a Task of " + projectTask.Project.Name + " has An Urgent Note to it";
+            newNotification.ProjectTaskId = projectTask.Id;
+            newNotification.DateCreated = DateTime.Now;
+            db.Notifications.Add(newNotification);
+            db.SaveChanges();
+        }
+
     }
 }

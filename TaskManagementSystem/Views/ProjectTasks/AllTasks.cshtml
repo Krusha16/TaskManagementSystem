@@ -103,7 +103,24 @@
                 <div>
                     <button type="submit" class="">Add Comment</button>
                 </div>
+                <br />
             }
+        <div>
+            @using (Html.BeginForm("UrgentNoteToTask", "ProjectTasks", new { taskId = item.Id }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="textarea_container__u09m6">
+                    @Html.TextArea("content", new { @class = "" })
+                    @Html.HiddenFor(modelItem => item.Id)
+                </div>
+                <p class="add-comment_status__17kg1"></p>
+                <div>
+                    <button type="submit" class="">Add Urgent Note</button>
+                </div>
+            }
+        </div>
+           
         </td>
     </tr>
 }
