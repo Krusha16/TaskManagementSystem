@@ -4,27 +4,36 @@
     ViewBag.Title = "AllProjects";
 }
 
-<h2>AllProjects</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<a href="@Url.Action("Index", "Notifications")">
-    Notifications(@ViewBag.NotificationCount)
-</a>
-<br />
-<a href="@Url.Action("UnFinishedPassedDeadline", "ProjectTasks")">
-    UnFinished Tasks Passed Deadline
-</a>
-<br />
-<a href="@Url.Action("GetProjectsExceededBudget", "Projects")">
-    GetProjectsExceededBudget
-</a>
-<br />
-<a href="@Url.Action("ShowAllUsers", "Admins")">
-    Show All Users
-</a>
-<br />
+
+@if (ViewBag.Exceeded != null)
+{
+    <h2>Projects Exceeded Budget</h2>
+}
+else
+{
+    <h2>All Projects</h2>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <a href="@Url.Action("Index", "Notifications")">
+        Notifications(@ViewBag.NotificationCount)
+    </a>
+    <br />
+    <a href="@Url.Action("UnFinishedPassedDeadline", "ProjectTasks")">
+        UnFinished Tasks Passed Deadline
+    </a>
+    <br />
+    <a href="@Url.Action("GetProjectsExceededBudget", "Projects")">
+        GetProjectsExceededBudget
+    </a>
+    <br />
+    <a href="@Url.Action("ShowAllUsers", "Admins")">
+        Show All Users
+    </a>
+    <br />
+}
+
 <table class="table">
     <tr>
         <th>

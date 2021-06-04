@@ -166,9 +166,13 @@ namespace TaskManagementSystem.Controllers
                 projectTask.CompletionPercentage = 100;
                 projectTask.IsCompleted = true;
                 MembershipHelper.UpdateNotificationsForProjectManager(projectTask);
+                ProjectHelper.UpdateNotifications(projectTask.Project);
+            }
+            else
+            {
+                projectTask.IsCompleted = false;
             }
             db.SaveChanges();
-            ProjectHelper.UpdateNotifications(projectTask.Project);
             ModelState["percentage"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             ApplicationUser applicationUser = db.Users.Find(userId);
@@ -181,12 +185,15 @@ namespace TaskManagementSystem.Controllers
         public ActionResult MarkAsCompleted(int taskId)
         {
             ProjectTask projectTask = db.ProjectTasks.Find(taskId);
-            if (projectTask == null)
+            if(!projectTask.IsCompleted)
             {
-                return HttpNotFound();
+                projectTask.CompletionPercentage = 100;
+                projectTask.IsCompleted = true;
             }
-            projectTask.CompletionPercentage = 100;
-            projectTask.IsCompleted = true;
+            else
+            {
+                projectTask.IsCompleted = false;
+            }
             db.SaveChanges();
             MembershipHelper.UpdateNotificationsForProjectManager(projectTask);
             ProjectHelper.UpdateNotifications(projectTask.Project);

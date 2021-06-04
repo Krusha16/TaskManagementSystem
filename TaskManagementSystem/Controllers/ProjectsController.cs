@@ -267,12 +267,16 @@ namespace TaskManagementSystem.Controllers
             var ExccededBudgetProjects = new List<Project>();
             foreach (var project in UserProjects)
             {
-                if (project.Budget < ProjectHelper.GetTotalCost(project))
+                var totalCost = ProjectHelper.GetTotalCost(project);
+                if (project.Budget < totalCost)
                 {
+                    project.TotalCost = totalCost;
                     ExccededBudgetProjects.Add(project);
                 }
             }
-            return View(ExccededBudgetProjects);
+            db.SaveChanges();
+            ViewBag.Exceeded = true;
+            return View("~/Views/Projects/AllProjects.cshtml", ExccededBudgetProjects);
         }
     }
 }
