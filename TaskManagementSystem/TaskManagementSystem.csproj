@@ -297,6 +297,7 @@
     <Content Include="Views\ProjectTasks\AssignDeveloper.cshtml" />
     <Content Include="Views\Notifications\Index.cshtml" />
     <Content Include="Views\Notifications\OpenNotification.cshtml" />
+    <Content Include="Views\Notifications\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

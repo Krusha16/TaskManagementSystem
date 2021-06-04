@@ -65,7 +65,9 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<button class="question" type="button">
+    <p class="link"> @Html.ActionLink("Back to List", "Index",null, new { style = "color: white;text-decoration:none" }) </p>
+</button>
+<button class="question" type="button">
+    <p class="link"> @Html.ActionLink("Go to Task", "Details", "ProjectTasks", new { id = Model.ProjectTaskId}, new { style = "color: white;text-decoration:none" }) </p>
+</button>

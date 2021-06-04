@@ -22,3 +22,94 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.question {
+    padding-bottom: 0px;
+    margin-bottom: 14px;
+    font-size: 15px;
+    background: dodgerblue;
+    border-radius: 5px;
+    color:white;
+}
+
+.question2 {
+    font-size: 15px;
+    padding: 5px;
+    padding-bottom: 0px;
+    margin-bottom: 14px;
+    margin-left: 10px;
+    background: dodgerblue;
+    border-radius: 5px;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+}
+
+.navigate {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.nav1 {
+    width: 20%;
+}
+
+.nav2 {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: right;
+    width: 20%;
+    padding: 7px;
+}
+
+.link:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.nameLink {
+    text-decoration: none;
+    color:black;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.tagN, .tagM, .tagL, .tagH {
+    text-align:center;
+    padding: 2px;
+    background: #b83b3b;
+    border-radius: 5px;
+}
+
+.tagM {
+    background: #c49a27;
+}
+
+.tagN {
+    background: #6acdf7;
+}
+
+.tagL {
+    background: #629e2b;
+}
+
+.prog{
+    display:flex;
+    flex-direction: row;
+}
+
+.notification{
+    display:flex;
+    flex-direction:row;
+}
+.one{
+    width:90%;
+}
+.two{
+    margin-top:30px;
+}

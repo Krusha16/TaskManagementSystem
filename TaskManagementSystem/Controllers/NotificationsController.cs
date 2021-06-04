@@ -31,5 +31,30 @@ namespace TaskManagementSystem.Controllers
             db.SaveChanges();
             return View(notification);
         }
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var notification = db.Notifications.Find(id);
+            if (notification == null)
+            {
+                return HttpNotFound();
+            }
+            return View(notification);
+        }
+
+        [Authorize(Roles = "Developer, Project Manager")]
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var notification = db.Notifications.Find(id);
+            db.Notifications.Remove(notification);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
