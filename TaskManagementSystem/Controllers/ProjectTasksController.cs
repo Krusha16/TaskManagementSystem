@@ -52,7 +52,7 @@ namespace TaskManagementSystem.Controllers
             if (ModelState.IsValid)
             {
                 ProjectTaskHelper.AddProjectTask(projectTask);
-                return RedirectToAction("Index");
+                return RedirectToAction("AllProjects", "Projects");
             }
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Email", projectTask.ApplicationUserId);
             ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", projectTask.ProjectId);

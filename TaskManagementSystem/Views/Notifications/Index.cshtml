@@ -35,11 +35,12 @@
             @Html.DisplayFor(modelItem => item.DateCreated)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            <button type="submit" class="question"><p class="link"> @Html.ActionLink("Delete", "Delete", "Notifications", new { id = item.Id }, new { style = "color: white;text-decoration:none" }) </p></button>
         </td>
     </tr>
 }
-
 </table>
+
+<button class="question" type="button">
+    <p class="link"> @Html.ActionLink("Back to Dashboard", "AllProjects", "Projects", null, new { style = "color: white;text-decoration:none" }) </p>
+</button>
