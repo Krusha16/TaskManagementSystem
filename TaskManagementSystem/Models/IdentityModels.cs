@@ -10,6 +10,7 @@ namespace TaskManagementSystem.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public double Salary { get; set; }
         public virtual ICollection<Project> Projects { get; set; }
         public virtual ICollection<ProjectTask> ProjectTasks { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
@@ -21,6 +22,7 @@ namespace TaskManagementSystem.Models
             this.ProjectTasks = new HashSet<ProjectTask>();
             this.Comments = new HashSet<Comment>();
             this.Notifications = new HashSet<Notification>();
+            this.Salary = 0;
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

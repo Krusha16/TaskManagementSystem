@@ -157,5 +157,137 @@ namespace TaskManagementSystem.Controllers
             project.ProjectTasks = sortedTasks;
             return View(project);
         }
+
+        public ActionResult SetBudget(int id)
+        {
+            var project = db.Projects.Find(id);
+            return View(project);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SetBudget(int Id, double budget)
+        {
+            var project = db.Projects.Find(Id);
+            if (project != null)
+            {
+                project.Budget = budget;
+                if (ModelState.IsValid)
+                {
+                    db.Entry(project).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("AllProjects");
+        }
+
+        public ActionResult SetDeadline(int? id)
+        {
+            var project = db.Projects.Find(id);
+            return View(project);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SetDeadline(int Id, string deadline)
+        {
+            var date = Convert.ToDateTime(deadline);
+            var project = db.Projects.Find(Id);
+            if (project != null)
+            {
+                project.Deadline = date;
+                if (ModelState.IsValid)
+                {
+                    db.Entry(project).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("AllProjects");
+        }
+
+        public ActionResult SetStartDate(int? id)
+        {
+            var project = db.Projects.Find(id);
+            return View(project);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SetStartDate(int Id, string startDate)
+        {
+            var date = Convert.ToDateTime(startDate);
+            var project = db.Projects.Find(Id);
+            if (project != null)
+            {
+                project.StartDate = date;
+                if (ModelState.IsValid)
+                {
+                    db.Entry(project).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("AllProjects");
+        }
+
+        public ActionResult SetFinishDate(int? id)
+        {
+            var project = db.Projects.Find(id);
+            return View(project);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SetFinishDate(int Id, DateTime finishDate)
+        {
+            var date = Convert.ToDateTime(finishDate);
+            var project = db.Projects.Find(Id);
+            if (project != null)
+            {
+                project.FinishDate = date;
+                if (ModelState.IsValid)
+                {
+                    foreach (var task in project.ProjectTasks)
+                    {
+                        task.IsCompleted = true;
+                        task.CompletionPercentage = 100;
+                        db.Entry(task).State = EntityState.Modified;
+                    }
+                    db.Entry(project).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("AllProjects");
+        }
+
+        public ActionResult GetProjectsExceededBudget()
+        {
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            ApplicationUser applicationUser = db.Users.Find(userId);
+            var UserProjects = db.Projects.Where(p => p.ApplicationUserId == userId).ToList();
+            var projects = new List<Project>();
+            foreach (var project in UserProjects)
+            {
+                var totalCost = TotalCost(project);
+                if (project.Budget < totalCost)
+                {
+                    projects.Add(project);
+                }
+            }
+            return View(projects);
+        }
+
+        public double TotalCost(Project project)
+        {
+            HashSet<ApplicationUser> developers = new HashSet<ApplicationUser>();
+            foreach (var task in project.ProjectTasks)
+            {
+                developers.Add(task.ApplicationUser);
+            }
+            var projectManager = db.Users.Find(project.ApplicationUserId);
+            int duration = (Convert.ToDateTime(project.FinishDate) - Convert.ToDateTime(project.StartDate)).Days;
+            var dailyCost = developers.Sum(d => d.Salary);
+            var totalCost = projectManager.Salary + ((duration) * dailyCost);
+            return totalCost;
+        }
     }
 }
