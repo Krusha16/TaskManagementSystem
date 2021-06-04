@@ -1,39 +1,46 @@
 ﻿@model TaskManagementSystem.Models.Project
 
 @{
-    ViewBag.Title = "SortTasksByCompletion";
+    ViewBag.Title = "Tasks In Project";
 }
 
-<h2>SortTasksByCompletion</h2>
-@Html.DisplayNameFor(model => model.ApplicationUser.Email) : @Html.DisplayFor(model => model.ApplicationUser.Email)
-<br />
-@Html.DisplayNameFor(model => model.Name) : @Html.DisplayFor(model => model.Name)
-<br />
-@Html.DisplayNameFor(model => model.Priority) : @Html.DisplayFor(model => model.Priority)
-<br />
-<button>
-    @Html.ActionLink("Hide Completed", "SortTasks", new { sortBy = "hideCompleted", projectId = Model.Id })
-</button>
-<button>
-    @Html.ActionLink("Sort By Priority", "SortTasks", new { sortBy = "priority", projectId = Model.Id })
-</button>
-<br />
-<button>
-    <a href="@Url.Action("Create", "ProjectTasks")">Create New</a>
-</button>
-<br />
+<h2>Project Details</h2>
 
-@Html.DisplayNameFor(model => model.ProjectTasks)
+<div class="navigate">
+    <div class="nav1">
+        <b>Project Creator</b> : @Html.DisplayFor(model => model.ApplicationUser.Email)
+        <br />
+        <b>Project Name</b> : @Html.DisplayFor(model => model.Name)
+        <br />
+        <b>@Html.DisplayNameFor(model => model.Priority)</b> : @Html.DisplayFor(model => model.Priority)
+        <br />
+        <button class="question" type="button"><p class="link"> 
+            <a href="@Url.Action("Create", "ProjectTasks", new { style = "color: white;text-decoration:none" })">Create New</a>
+            </p></button>
+    </div>
+    <div class="navigate">
+        <div>
+            <button class="question" type="button"><p class="link"> @Html.ActionLink("Hide Completed", "SortTasks", new { sortBy = "hideCompleted", projectId = Model.Id }, new { style = "color: white;text-decoration:none" }) </p></button>
+        </div>
+        <div>
+            <button class="question" type="button" style="margin-left: 6px"><p class="link"> @Html.ActionLink("Sort By Priority", "SortTasks", new { sortBy = "priority", projectId = Model.Id }, new { style = "color: white;text-decoration:none" }) </p></button>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<b style="font-size:17px">@Html.DisplayNameFor(model => model.ProjectTasks)</b>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayName("Email")
         </th>
         <th>
-            @Html.DisplayName("ProjectName")
+            @Html.DisplayName("Project Name")
         </th>
         <th>
-            @Html.DisplayName("taskName")
+            @Html.DisplayName("task Name")
         </th>
         <th>
             @Html.DisplayName("CompletionPercentage")
@@ -58,15 +65,41 @@
     <td>
         @Html.DisplayFor(modelItem => task.Name)
     </td>
-    <td>
-        @Html.DisplayFor(modelItem => task.CompletionPercentage)
+    <td class="prog">
+        <div class="percentages">
+            @Html.DisplayFor(modelItem => task.CompletionPercentage)%
+        </div>
+        <div class="bar">
+            <progress max="100" value="@task.CompletionPercentage"></progress>
+        </div>
     </td>
     <td>
         @Html.DisplayFor(modelItem => task.IsCompleted)
     </td>
-    <td>
-        @Html.DisplayFor(modelItem => task.Priority)
-    </td>
+    @if (task.Priority == TaskManagementSystem.Models.Priority.Low)
+    {
+        <td style="color:white" })>
+            <div class="tagL">@Html.DisplayFor(modelItem => task.Priority)</div>
+        </td>
+    }
+    else if (task.Priority == TaskManagementSystem.Models.Priority.Medium)
+    {
+        <td style="color:white" })>
+            <div class="tagM">@Html.DisplayFor(modelItem => task.Priority)</div>
+        </td>
+    }
+    else if (task.Priority == TaskManagementSystem.Models.Priority.High)
+    {
+        <td style="color:white" })>
+            <div class="tagH">@Html.DisplayFor(modelItem => task.Priority)</div>
+        </td>
+    }
+    else if (task.Priority == TaskManagementSystem.Models.Priority.None)
+    {
+        <td style="color:white" })>
+            <div class="tagN">@Html.DisplayFor(modelItem => task.Priority)</div>
+        </td>
+    }
 </tr>
     }
 </table>

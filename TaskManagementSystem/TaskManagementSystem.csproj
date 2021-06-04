@@ -295,12 +295,10 @@
     <Content Include="Views\Projects\Delete.cshtml" />
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\Edit.cshtml" />
-    <Content Include="Views\Projects\Index.cshtml" />
     <Content Include="Views\ProjectTasks\Create.cshtml" />
     <Content Include="Views\ProjectTasks\Delete.cshtml" />
     <Content Include="Views\ProjectTasks\Details.cshtml" />
     <Content Include="Views\ProjectTasks\Edit.cshtml" />
-    <Content Include="Views\ProjectTasks\Index.cshtml" />
     <Content Include="Views\ProjectTasks\AllTasks.cshtml" />
     <Content Include="Views\Projects\AllProjects.cshtml" />
     <Content Include="Views\Projects\SortTasks.cshtml" />
@@ -315,6 +313,7 @@
     <Content Include="Views\Projects\SetStartDate.cshtml" />
     <Content Include="Views\Projects\SetFinishDate.cshtml" />
     <Content Include="Views\Projects\SetDeadline.cshtml" />
+    <Content Include="Views\Notifications\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
