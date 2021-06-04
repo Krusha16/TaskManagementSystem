@@ -18,7 +18,7 @@ namespace TaskManagementSystem.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public Priority Priority { get; set; }
-        public DateTime Deadline { get; set; }
+        public DateTime? Deadline { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? FinishDate { get; set; }
         public double Budget { get; set; }

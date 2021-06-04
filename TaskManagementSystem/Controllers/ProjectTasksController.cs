@@ -35,10 +35,13 @@ namespace TaskManagementSystem.Controllers
             return View(projectTask);
         }
 
+        [Authorize(Roles = "Project Manager")]
         public ActionResult Create()
         {
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var filteredProjects = db.Projects.Where(t => t.ApplicationUserId == userId).ToList();
             ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Email");
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name");
+            ViewBag.ProjectId = new SelectList(filteredProjects, "Id", "Name");
             return View();
         }
 

@@ -38,17 +38,17 @@ namespace TaskManagementSystem.Controllers
         public ActionResult Create()
         {
             var roleId = db.Roles.Where(r => r.Name == "Project Manager").First().Id;
-            var users = db.Users.Where(x => x.Roles.Select(y => y.RoleId).Contains(roleId)).ToList();
-            ViewBag.ApplicationUserId = new SelectList(users, "Id", "Email");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,ApplicationUserId")] Project project)
+        public ActionResult Create([Bind(Include = "Id,Name")] Project project)
         {
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
+                project.ApplicationUserId = userId;
                 ProjectHelper.AddProject(project);
                 return RedirectToAction("Index");
             }
