@@ -189,6 +189,7 @@ namespace TaskManagementSystem.Controllers
             projectTask.IsCompleted = true;
             db.SaveChanges();
             MembershipHelper.UpdateNotificationsForProjectManager(projectTask);
+            ProjectHelper.UpdateNotifications(projectTask.Project);
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             ApplicationUser applicationUser = db.Users.Find(userId);
             ViewBag.NotificationCount = applicationUser.Notifications.Count;

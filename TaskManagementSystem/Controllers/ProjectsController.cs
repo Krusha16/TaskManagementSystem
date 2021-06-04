@@ -264,30 +264,15 @@ namespace TaskManagementSystem.Controllers
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             ApplicationUser applicationUser = db.Users.Find(userId);
             var UserProjects = db.Projects.Where(p => p.ApplicationUserId == userId).ToList();
-            var projects = new List<Project>();
+            var ExccededBudgetProjects = new List<Project>();
             foreach (var project in UserProjects)
             {
-                var totalCost = TotalCost(project);
-                if (project.Budget < totalCost)
+                if (project.Budget < ProjectHelper.GetTotalCost(project))
                 {
-                    projects.Add(project);
+                    ExccededBudgetProjects.Add(project);
                 }
             }
-            return View(projects);
-        }
-
-        public double TotalCost(Project project)
-        {
-            HashSet<ApplicationUser> developers = new HashSet<ApplicationUser>();
-            foreach (var task in project.ProjectTasks)
-            {
-                developers.Add(task.ApplicationUser);
-            }
-            var projectManager = db.Users.Find(project.ApplicationUserId);
-            int duration = (Convert.ToDateTime(project.FinishDate) - Convert.ToDateTime(project.StartDate)).Days;
-            var dailyCost = developers.Sum(d => d.Salary);
-            var totalCost = projectManager.Salary + ((duration) * dailyCost);
-            return totalCost;
+            return View(ExccededBudgetProjects);
         }
     }
 }
