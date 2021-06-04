@@ -209,6 +209,10 @@
     <Compile Include="Migrations\202106031459014_AddFlagFieldToComment.Designer.cs">
       <DependentUpon>202106031459014_AddFlagFieldToComment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106040016083_AddBudgetProperty.cs" />
+    <Compile Include="Migrations\202106040016083_AddBudgetProperty.Designer.cs">
+      <DependentUpon>202106040016083_AddBudgetProperty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -297,10 +301,16 @@
     <Content Include="Views\ProjectTasks\AssignDeveloper.cshtml" />
     <Content Include="Views\Notifications\Index.cshtml" />
     <Content Include="Views\Notifications\OpenNotification.cshtml" />
+    <Content Include="Views\Admins\SetSalary.cshtml" />
+    <Content Include="Views\Admins\ShowAllUsers.cshtml" />
+    <Content Include="Views\Projects\GetProjectsExceededBudget.cshtml" />
+    <Content Include="Views\Projects\SetBudget.cshtml" />
+    <Content Include="Views\Projects\SetStartDate.cshtml" />
+    <Content Include="Views\Projects\SetFinishDate.cshtml" />
+    <Content Include="Views\Projects\SetDeadline.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admins\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -339,6 +349,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106031459014_AddFlagFieldToComment.resx">
       <DependentUpon>202106031459014_AddFlagFieldToComment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106040016083_AddBudgetProperty.resx">
+      <DependentUpon>202106040016083_AddBudgetProperty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
