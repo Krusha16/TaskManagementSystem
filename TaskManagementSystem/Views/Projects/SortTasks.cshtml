@@ -18,6 +18,9 @@
     @Html.ActionLink("Sort By Priority", "SortTasks", new { sortBy = "priority", projectId = Model.Id })
 </button>
 <br />
+<button>
+    <a href="@Url.Action("Create", "ProjectTasks")">Create New</a>
+</button>
 <br />
 
 @Html.DisplayNameFor(model => model.ProjectTasks)

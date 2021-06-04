@@ -12,7 +12,7 @@ namespace TaskManagementSystem.Models
         public int CompletionPercentage { get; set; }
         public bool IsCompleted { get; set; }
         public Priority Priority { get; set; }
-        public DateTime Deadline { get; set; }
+        public DateTime? Deadline { get; set; }
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
         public int ProjectId { get; set; }
