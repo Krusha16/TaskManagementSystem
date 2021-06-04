@@ -17,9 +17,12 @@ namespace TaskManagementSystem.Models
 
         public static void AddProject(Project project)
         {
+            project.Deadline = DateTime.Now;
             db.Projects.Add(project);
             db.SaveChanges();
         }
+
+        
 
         public static void DeleteProject(int id)
         {

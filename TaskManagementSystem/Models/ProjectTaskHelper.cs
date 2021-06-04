@@ -19,6 +19,7 @@ namespace TaskManagementSystem.Models
 
         public static void AddProjectTask(ProjectTask projectTask)
         {
+            projectTask.Deadline = DateTime.Now;
             db.ProjectTasks.Add(projectTask);
             db.SaveChanges();
         }
