@@ -49,6 +49,9 @@
             @Html.DisplayNameFor(model => model.Budget)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ProjectTasks)
         </th>
         <th></th>
@@ -82,10 +85,16 @@
                 { @Html.DisplayFor(modelItem => item.FinishDate)}
             </td>
             <td>
-                @if (item.Budget < 0)
+                @if (item.Budget <= 0)
                 {<p>—</p> }
                 else
                 { @Html.DisplayFor(modelItem => item.Budget)}
+            </td>
+            <td>
+                @if (item.TotalCost <= 0)
+                {<p>—</p> }
+                else
+                { @Html.DisplayFor(modelItem => item.TotalCost)}
             </td>
             <td>
                 <table class="table">
@@ -133,9 +142,9 @@
                                 @Html.DisplayFor(modelItem => task.Priority)
                             </td>
                             <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                <a href="@Url.Action("Edit", "ProjectTasks", new { id = task.Id })">Edit</a> |
+                                <a href="@Url.Action("Details", "ProjectTasks", new { id = task.Id })">Details</a> |
+                                <a href="@Url.Action("Delete", "ProjectTasks", new { id = task.Id })">Delete</a>
                             </td>
                         </tr>
                     }

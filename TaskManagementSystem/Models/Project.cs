@@ -22,6 +22,7 @@ namespace TaskManagementSystem.Models
         public DateTime? StartDate { get; set; }
         public DateTime? FinishDate { get; set; }
         public double Budget { get; set; }
+        public double TotalCost { get; set; }
         public string ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual ICollection<ProjectTask> ProjectTasks { get; set; }

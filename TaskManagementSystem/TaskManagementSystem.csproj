@@ -213,6 +213,10 @@
     <Compile Include="Migrations\202106040016083_AddBudgetProperty.Designer.cs">
       <DependentUpon>202106040016083_AddBudgetProperty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106040417157_AddTotalCostToProject.cs" />
+    <Compile Include="Migrations\202106040417157_AddTotalCostToProject.Designer.cs">
+      <DependentUpon>202106040417157_AddTotalCostToProject.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -352,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106040016083_AddBudgetProperty.resx">
       <DependentUpon>202106040016083_AddBudgetProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106040417157_AddTotalCostToProject.resx">
+      <DependentUpon>202106040417157_AddTotalCostToProject.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
