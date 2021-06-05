@@ -59,14 +59,16 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <button class="question" type="submit"><p class="link">Create</p></button>
             </div>
         </div>
     </div>
 }
 
-<div>
-    <a href="@Url.Action("AllProjects", "Projects")">Back to Dashboard</a>
+<div class="question2">
+    <a class="link" href="@Url.Action("AllProjects", "Projects", new { style = "color: white;text-decoration:none" })">
+        Back to Dashboard
+    </a>
 </div>
 
 @section Scripts {

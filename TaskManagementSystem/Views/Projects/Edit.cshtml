@@ -82,14 +82,16 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <button class="question" type="submit"><p class="link">Save</p></button>
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="question2">
+    <a class="link" href="@Url.Action("Index", new { style = "color: white;text-decoration:none" })">
+        Back to Dashboard
+    </a>
 </div>
 
 

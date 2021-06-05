@@ -10,33 +10,235 @@
 }
 else
 {
-<div class="navigate">
-    <div class="nav1">
-        <button class="question" type="button"><p class="link"> @Html.ActionLink("Create New", "Create", null, new { style = "color: white;text-decoration:none" }) </p></button>
-    </div>
-    <div class="nav2">
-        <a href="@Url.Action("Index", "Notifications", new { style = "color: white;text-decoration:none" })" style="font-size:20px">
-            <i class="fa fa-bell"></i>(@ViewBag.NotificationCount)
-        </a>
-        <div class="question2">
-            <a class="link" href="@Url.Action("UnFinishedPassedDeadline", "ProjectTasks", new { style = "color: white;text-decoration:none" })">
-                UnFinished Tasks
+    <div class="navigate">
+        <div class="nav1">
+            <button class="question" type="button"><p class="link"> @Html.ActionLink("Create New", "Create", null, new { style = "color: white;text-decoration:none" }) </p></button>
+        </div>
+        <div class="nav2">
+            <a href="@Url.Action("Index", "Notifications", new { style = "color: white;text-decoration:none" })" style="font-size:20px">
+                <i class="fa fa-bell"></i>(@ViewBag.NotificationCount)
             </a>
+            <div class="question2">
+                <a class="link" href="@Url.Action("UnFinishedPassedDeadline", "ProjectTasks", new { style = "color: white;text-decoration:none" })">
+                    UnFinished Tasks
+                </a>
+            </div>
+            <div class="question2">
+                <a class="link" href="@Url.Action("GetProjectsExceededBudget", "Projects", new { style = "color: white;text-decoration:none" })">
+                    Over Budget Projects
+                </a>
+            </div>
+            <div class="question2">
+                <a class="link" href="@Url.Action("ShowAllUsers", "Admins", new { style = "color: white;text-decoration:none" })">
+                    Show All Users
+                </a>
+            </div>
         </div>
     </div>
-</div>
-    <br />
-    <a href="@Url.Action("GetProjectsExceededBudget", "Projects")">
-        GetProjectsExceededBudget
-    </a>
-    <br />
-    <a href="@Url.Action("ShowAllUsers", "Admins")">
-        Show All Users
-    </a>
-    <br />
 }
 <br />
-<table class="table">
+
+@foreach (var item in Model)
+{
+<h3>Project: @Html.ActionLink(item.Name, "SortTasks", new { sortBy = "completetion", projectId = @item.Id })</h3>
+    <table class="table">
+        <tr>
+            <th>
+                Project by:
+            </th>
+            <th>
+                Project Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deadline)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinishDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Budget)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalCost)
+            </th>
+            <th>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            @if (item.Priority == TaskManagementSystem.Models.Priority.Low)
+            {
+                <td style="color:white" })>
+                    <div class="tagL">@Html.DisplayFor(modelItem => item.Priority)</div>
+                </td>
+            }
+            else if (item.Priority == TaskManagementSystem.Models.Priority.Medium)
+            {
+                <td style="color:white" })>
+                    <div class="tagM">@Html.DisplayFor(modelItem => item.Priority)</div>
+                </td>
+            }
+            else if (item.Priority == TaskManagementSystem.Models.Priority.High)
+            {
+                <td style="color:white" })>
+                    <div class="tagH">@Html.DisplayFor(modelItem => item.Priority)</div>
+                </td>
+            }
+            else if (item.Priority == TaskManagementSystem.Models.Priority.None)
+            {
+                <td style="color:white" })>
+                    <div class="tagN">@Html.DisplayFor(modelItem => item.Priority)</div>
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Deadline)
+            </td>
+            <td>
+                @if (item.StartDate == null)
+                {<p>—</p> }
+                else
+                { @Html.DisplayFor(modelItem => item.StartDate)}
+            </td>
+            <td>
+                @if (item.FinishDate == null)
+                {<p>—</p> }
+                else
+                { @Html.DisplayFor(modelItem => item.FinishDate)}
+            </td>
+            <td>
+                @if (item.Budget <= 0)
+                {<p>$0</p>}
+                else
+                { <p>$@Html.DisplayFor(modelItem => item.Budget)</p>}
+            </td>
+            <td>
+                @if (item.TotalCost <= 0)
+                {<p>$0</p>}
+                else
+                {<p>$@Html.DisplayFor(modelItem => item.TotalCost)</p>}
+            </td>
+            <td>
+            </td>
+            <td>
+                <button class="question3" type="button" style="background: #865e8c;">
+                    <p class="link"> @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { style = "color: white;text-decoration:none" }) </p>
+                </button>
+                <button class="question3" type="button" style="background: #865e8c;">
+                    <p class="link"> @Html.ActionLink("Details", "Details", new { id = item.Id }, new { style = "color: white;text-decoration:none" }) </p>
+                </button>
+                <button class="question3" type="button" style="background: #865e8c;">
+                    <p class="link"> @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { style = "color: white;text-decoration:none" }) </p>
+                </button>
+            </td>
+        </tr>
+    </table>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Email")
+            </th>
+            <th>
+                @Html.DisplayName("ProjectName")
+            </th>
+            <th>
+                @Html.DisplayName("taskName")
+            </th>
+            <th>
+                @Html.DisplayName("CompletionPercentage")
+            </th>
+            <th>
+                @Html.DisplayName("Priority")
+            </th>
+            <th></th>
+        </tr>
+        <h3>Tasks:</h3>
+        @foreach (var task in item.ProjectTasks)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => task.ApplicationUser.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => task.Project.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => task.Name)
+                </td>
+                <td class="prog">
+                    <div class="percentages">
+                        @Html.DisplayFor(modelItem => task.CompletionPercentage)%
+                    </div>
+                    <div class="bar">
+                        <progress max="100" value="@task.CompletionPercentage"></progress>
+                    </div>
+                </td>
+                @if (task.Priority == TaskManagementSystem.Models.Priority.Low)
+                {
+                    <td style="color:white" })>
+                        <div class="tagL">@Html.DisplayFor(modelItem => task.Priority)</div>
+                    </td>
+                }
+                else if (task.Priority == TaskManagementSystem.Models.Priority.Medium)
+                {
+                    <td style="color:white" })>
+                        <div class="tagM">@Html.DisplayFor(modelItem => task.Priority)</div>
+                    </td>
+                }
+                else if (task.Priority == TaskManagementSystem.Models.Priority.High)
+                {
+                    <td style="color:white" })>
+                        <div class="tagH">@Html.DisplayFor(modelItem => task.Priority)</div>
+                    </td>
+                }
+                else if (task.Priority == TaskManagementSystem.Models.Priority.None)
+                {
+                    <td style="color:white" })>
+                        <div class="tagN">@Html.DisplayFor(modelItem => task.Priority)</div>
+                    </td>
+                }
+            <td>
+                <button class="question3" type="button" style="background: #6160a1;">
+                    <p class="link">@Html.ActionLink("Update Priority", "UpdatePriority", "ProjectTasks", new { id = task.Id }, new { style = "color: white;text-decoration:none" }) </p>
+                </button>
+                <button class="question3" type="button" style="background: #6160a1;">
+                    <p class="link">@Html.ActionLink("Assign Developer", "AssignDeveloper", "ProjectTasks", new { id = task.Id }, new { style = "color: white;text-decoration:none" }) </p>
+                </button>
+                <button class="question3" type="button" style="background: #6160a1;">
+                    <p class="link">@Html.ActionLink("Details", "Details", "ProjectTasks", new { id = task.Id }, new { style = "color: white;text-decoration:none" }) </p>
+                </button>
+                <button class="question3" type="button" style="background: #6160a1;">
+                    <p class="link">@Html.ActionLink("Delete", "Delete", "ProjectTasks", new { id = task.Id }, new { style = "color: white;text-decoration:none" }) </p>
+                </button>
+            </td>
+            </tr>
+        }
+    </table>
+    <hr style="height:2px;border:none;color:#333;background-color:#333" />
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@*<table class="table">
     <tr>
         <th>
             Project by:
@@ -71,224 +273,6 @@ else
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
-    </td>
-    <td>
-        @Html.ActionLink(item.Name, "SortTasks", new { sortBy = "completetion", projectId = @item.Id })
-    </td>
-    @if (item.Priority == TaskManagementSystem.Models.Priority.Low)
-    {
-        <td style="color:white" })>
-            <div class="tagL">@Html.DisplayFor(modelItem => item.Priority)</div>
-        </td>
-    }
-    else if (item.Priority == TaskManagementSystem.Models.Priority.Medium)
-    {
-        <td style="color:white" })>
-            <div class="tagM">@Html.DisplayFor(modelItem => item.Priority)</div>
-        </td>
-    }
-    else if (item.Priority == TaskManagementSystem.Models.Priority.High)
-    {
-        <td style="color:white" })>
-            <div class="tagH">@Html.DisplayFor(modelItem => item.Priority)</div>
-        </td>
-    }
-    else if (item.Priority == TaskManagementSystem.Models.Priority.None)
-    {
-        <td style="color:white" })>
-            <div class="tagN">@Html.DisplayFor(modelItem => item.Priority)</div>
-        </td>
-    }
-    <td>
-        @Html.DisplayFor(modelItem => item.Deadline)
-    </td>
-
-    <td>
-        @if (item.StartDate == null)
-        {<p>—</p> }
-        else
-        { @Html.DisplayFor(modelItem => item.StartDate)}
-    </td>
-    <td>
-        @if (item.FinishDate == null)
-        {<p>—</p> }
-        else
-        { @Html.DisplayFor(modelItem => item.FinishDate)}
-    </td>
-    <td>
-        @if (item.Budget <= 0)
-        {<p>—</p> }
-        else
-        { @Html.DisplayFor(modelItem => item.Budget)}
-    </td>
-    <td>
-        @if (item.TotalCost <= 0)
-        {<p>—</p> }
-        else
-        { @Html.DisplayFor(modelItem => item.TotalCost)}
-    </td>
-
-    <td>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayName("Email")
-                </th>
-                <th>
-                    @Html.DisplayName("ProjectName")
-                </th>
-                <th>
-                    @Html.DisplayName("taskName")
-                </th>
-                <th>
-                    @Html.DisplayName("CompletionPercentage")
-                </th>
-                <th>
-                    @Html.DisplayName("Priority")
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var task in item.ProjectTasks)
-            {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => task.ApplicationUser.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => task.Project.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => task.Name)
-            </td>
-            <td class="prog">
-                <div class="percentages">
-                    @Html.DisplayFor(modelItem => task.CompletionPercentage)%
-                </div>
-                <div class="bar">
-                    <progress max="100" value="@task.CompletionPercentage"></progress>
-                </div>
-            </td>
-            @if (task.Priority == TaskManagementSystem.Models.Priority.Low)
-            {
-                <td style="color:white" })>
-                    <div class="tagL">@Html.DisplayFor(modelItem => task.Priority)</div>
-                </td>
-            }
-            else if (task.Priority == TaskManagementSystem.Models.Priority.Medium)
-            {
-                <td style="color:white" })>
-                    <div class="tagM">@Html.DisplayFor(modelItem => task.Priority)</div>
-                </td>
-            }
-            else if (task.Priority == TaskManagementSystem.Models.Priority.High)
-            {
-                <td style="color:white" })>
-                    <div class="tagH">@Html.DisplayFor(modelItem => task.Priority)</div>
-                </td>
-            }
-            else if (task.Priority == TaskManagementSystem.Models.Priority.None)
-            {
-                <td style="color:white" })>
-                    <div class="tagN">@Html.DisplayFor(modelItem => task.Priority)</div>
-                </td>
-            }
-            <td>
-            @Html.ActionLink("Update Priority", "UpdatePriority", new { id = task.Id })
-            <a href="@Url.Action("Edit", "ProjectTasks", new { id = task.Id })">Edit</a> |
-            <a href="@Url.Action("Details", "ProjectTasks", new { id = task.Id })">Details</a> |
-            <a href="@Url.Action("Delete", "ProjectTasks", new { id = task.Id })">Delete</a>
-</td>
-                </tr>
-            }
-        </table>
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.Id }) 
-    </td>
-</tr>
-    }
-</table>
-
-
-
-
-
-@*@model IEnumerable<TaskManagementSystem.Models.Project>
-
-@{
-    ViewBag.Title = "AllProjects";
-}
-
-
-
-@if (ViewBag.Exceeded != null)
-{
-    <h2>Projects Exceeded Budget</h2>
-}
-else
-{
-    <h2>All Projects</h2>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <a href="@Url.Action("Index", "Notifications")">
-        Notifications(@ViewBag.NotificationCount)
-    </a>
-    <br />
-    <a href="@Url.Action("UnFinishedPassedDeadline", "ProjectTasks")">
-        UnFinished Tasks Passed Deadline
-    </a>
-    <br />
-    <a href="@Url.Action("GetProjectsExceededBudget", "Projects")">
-        GetProjectsExceededBudget
-    </a>
-    <br />
-    <a href="@Url.Action("ShowAllUsers", "Admins")">
-        Show All Users
-    </a>
-    <br />
-}
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Priority)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Deadline)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FinishDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Budget)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TotalCost)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProjectTasks)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
@@ -296,12 +280,34 @@ else
             <td>
                 @Html.ActionLink(item.Name, "SortTasks", new { sortBy = "completetion", projectId = @item.Id })
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Priority)
-            </td>
+            @if (item.Priority == TaskManagementSystem.Models.Priority.Low)
+            {
+                <td style="color:white" })>
+                    <div class="tagL">@Html.DisplayFor(modelItem => item.Priority)</div>
+                </td>
+            }
+            else if (item.Priority == TaskManagementSystem.Models.Priority.Medium)
+            {
+                <td style="color:white" })>
+                    <div class="tagM">@Html.DisplayFor(modelItem => item.Priority)</div>
+                </td>
+            }
+            else if (item.Priority == TaskManagementSystem.Models.Priority.High)
+            {
+                <td style="color:white" })>
+                    <div class="tagH">@Html.DisplayFor(modelItem => item.Priority)</div>
+                </td>
+            }
+            else if (item.Priority == TaskManagementSystem.Models.Priority.None)
+            {
+                <td style="color:white" })>
+                    <div class="tagN">@Html.DisplayFor(modelItem => item.Priority)</div>
+                </td>
+            }
             <td>
                 @Html.DisplayFor(modelItem => item.Deadline)
             </td>
+
             <td>
                 @if (item.StartDate == null)
                 {<p>—</p> }
@@ -326,6 +332,7 @@ else
                 else
                 { @Html.DisplayFor(modelItem => item.TotalCost)}
             </td>
+
             <td>
                 <table class="table">
                     <tr>
@@ -340,9 +347,6 @@ else
                         </th>
                         <th>
                             @Html.DisplayName("CompletionPercentage")
-                        </th>
-                        <th>
-                            @Html.DisplayName("IsCompleted")
                         </th>
                         <th>
                             @Html.DisplayName("Priority")
@@ -362,16 +366,40 @@ else
                             <td>
                                 @Html.DisplayFor(modelItem => task.Name)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => task.CompletionPercentage)
+                            <td class="prog">
+                                <div class="percentages">
+                                    @Html.DisplayFor(modelItem => task.CompletionPercentage)%
+                                </div>
+                                <div class="bar">
+                                    <progress max="100" value="@task.CompletionPercentage"></progress>
+                                </div>
                             </td>
+                            @if (task.Priority == TaskManagementSystem.Models.Priority.Low)
+                            {
+                                <td style="color:white" })>
+                                    <div class="tagL">@Html.DisplayFor(modelItem => task.Priority)</div>
+                                </td>
+                            }
+                            else if (task.Priority == TaskManagementSystem.Models.Priority.Medium)
+                            {
+                                <td style="color:white" })>
+                                    <div class="tagM">@Html.DisplayFor(modelItem => task.Priority)</div>
+                                </td>
+                            }
+                            else if (task.Priority == TaskManagementSystem.Models.Priority.High)
+                            {
+                                <td style="color:white" })>
+                                    <div class="tagH">@Html.DisplayFor(modelItem => task.Priority)</div>
+                                </td>
+                            }
+                            else if (task.Priority == TaskManagementSystem.Models.Priority.None)
+                            {
+                                <td style="color:white" })>
+                                    <div class="tagN">@Html.DisplayFor(modelItem => task.Priority)</div>
+                                </td>
+                            }
                             <td>
-                                @Html.DisplayFor(modelItem => task.IsCompleted)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => task.Priority)
-                            </td>
-                            <td>
+                                @Html.ActionLink("Update Priority", "UpdatePriority", new { id = task.Id }) |
                                 <a href="@Url.Action("Edit", "ProjectTasks", new { id = task.Id })">Edit</a> |
                                 <a href="@Url.Action("Details", "ProjectTasks", new { id = task.Id })">Details</a> |
                                 <a href="@Url.Action("Delete", "ProjectTasks", new { id = task.Id })">Delete</a>
@@ -383,12 +411,186 @@ else
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-                @Html.ActionLink("SetBudget", "SetBudget", new { id = item.Id }) |
-                @Html.ActionLink("Set Deadline", "SetDeadline", new { id = item.Id }) |
-                @Html.ActionLink("Set Startdate", "SetStartdate", new { id = item.Id }) |
-                @Html.ActionLink("Set FinishDate", "SetFinishDate", new { id = item.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }
 </table>*@
+
+
+
+
+
+@*@model IEnumerable<TaskManagementSystem.Models.Project>
+
+    @{
+        ViewBag.Title = "AllProjects";
+    }
+
+
+
+    @if (ViewBag.Exceeded != null)
+    {
+        <h2>Projects Exceeded Budget</h2>
+    }
+    else
+    {
+        <h2>All Projects</h2>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <a href="@Url.Action("Index", "Notifications")">
+            Notifications(@ViewBag.NotificationCount)
+        </a>
+        <br />
+        <a href="@Url.Action("UnFinishedPassedDeadline", "ProjectTasks")">
+            UnFinished Tasks Passed Deadline
+        </a>
+        <br />
+        <a href="@Url.Action("GetProjectsExceededBudget", "Projects")">
+            GetProjectsExceededBudget
+        </a>
+        <br />
+        <a href="@Url.Action("ShowAllUsers", "Admins")">
+            Show All Users
+        </a>
+        <br />
+    }
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationUser.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deadline)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinishDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Budget)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjectTasks)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
+                </td>
+                <td>
+                    @Html.ActionLink(item.Name, "SortTasks", new { sortBy = "completetion", projectId = @item.Id })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Priority)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Deadline)
+                </td>
+                <td>
+                    @if (item.StartDate == null)
+                    {<p>—</p> }
+                    else
+                    { @Html.DisplayFor(modelItem => item.StartDate)}
+                </td>
+                <td>
+                    @if (item.FinishDate == null)
+                    {<p>—</p> }
+                    else
+                    { @Html.DisplayFor(modelItem => item.FinishDate)}
+                </td>
+                <td>
+                    @if (item.Budget <= 0)
+                    {<p>—</p> }
+                    else
+                    { @Html.DisplayFor(modelItem => item.Budget)}
+                </td>
+                <td>
+                    @if (item.TotalCost <= 0)
+                    {<p>—</p> }
+                    else
+                    { @Html.DisplayFor(modelItem => item.TotalCost)}
+                </td>
+                <td>
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayName("Email")
+                            </th>
+                            <th>
+                                @Html.DisplayName("ProjectName")
+                            </th>
+                            <th>
+                                @Html.DisplayName("taskName")
+                            </th>
+                            <th>
+                                @Html.DisplayName("CompletionPercentage")
+                            </th>
+                            <th>
+                                @Html.DisplayName("IsCompleted")
+                            </th>
+                            <th>
+                                @Html.DisplayName("Priority")
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var task in item.ProjectTasks)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => task.ApplicationUser.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => task.Project.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => task.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => task.CompletionPercentage)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => task.IsCompleted)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => task.Priority)
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "ProjectTasks", new { id = task.Id })">Edit</a> |
+                                    <a href="@Url.Action("Details", "ProjectTasks", new { id = task.Id })">Details</a> |
+                                    <a href="@Url.Action("Delete", "ProjectTasks", new { id = task.Id })">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                    @Html.ActionLink("SetBudget", "SetBudget", new { id = item.Id }) |
+                    @Html.ActionLink("Set Deadline", "SetDeadline", new { id = item.Id }) |
+                    @Html.ActionLink("Set Startdate", "SetStartdate", new { id = item.Id }) |
+                    @Html.ActionLink("Set FinishDate", "SetFinishDate", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>*@

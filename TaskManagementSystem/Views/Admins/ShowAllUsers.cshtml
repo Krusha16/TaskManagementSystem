@@ -20,15 +20,21 @@
             </td>
             <td>@Html.DisplayFor(modelItem => item.Salary)</td>
             <td>
-                @Html.ActionLink("ShowTheRoles", "AllRoles", new { userId = item.Id }) |
-                @Html.ActionLink("Assign Role", "AddUserToRole", new { userId = item.Id }) |
-                @Html.ActionLink("Set Salary", "SetSalary", new { userId = item.Id })
+                <button class="question3" type="button" style="background: dodgerblue;">
+                    <p class="link"> @Html.ActionLink("ShowTheRoles", "AllRoles", new { userId = item.Id }, new { style = "color: white;text-decoration:none" }) </p>
+                </button>
+                <button class="question3" type="button" style="background: dodgerblue;">
+                    <p class="link"> @Html.ActionLink("Assign Role", "AddUserToRole", new { userId = item.Id }, new { style = "color: white;text-decoration:none" }) </p>
+                </button>
+                <button class="question3" type="button" style="background: dodgerblue;">
+                    <p class="link"> @Html.ActionLink("Set Salary", "SetSalary", new { userId = item.Id }, new { style = "color: white;text-decoration:none" }) </p>
+                </button>
             </td>
         </tr>
 }
 
 </table>
-<p>
-    @Html.ActionLink("Back to Management Page", "Index")
-</p>
+<button class="question" type="button">
+    <p class="link"> @Html.ActionLink("Go to Projects", "Index", "Projects", null, new { style = "color: white;text-decoration:none" }) </p>
+</button>
 

@@ -53,12 +53,21 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+        <div class="box">
+            <div class="form-actions no-color">
+                <button class="question" type="submit">
+                    <p class="link">Delete</p>
+                </button>
+            </div>
+            <div class="question4">
+                <a class="link" href="@Url.Action("Index", "Projects", new { style = "color: white;text-decoration:none" })">
+                    Back to Dashboard
+                </a>
+            </div>
         </div>
     }
 </div>

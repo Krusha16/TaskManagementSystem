@@ -81,7 +81,13 @@
         </dd>
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="box">
+    <div class="question4">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { style = "color: white;text-decoration:none" })
+    </div>
+    <div class="question4">
+        <a class="link" href="@Url.Action("Index", new { style = "color: white;text-decoration:none" })">
+            Back to Dashboard
+        </a>
+    </div>
+</div>
