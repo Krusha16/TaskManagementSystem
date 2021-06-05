@@ -32,6 +32,7 @@ namespace TaskManagementSystem.Controllers
             return View(notification);
         }
 
+        [Authorize(Roles = "Developer, Project Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -45,8 +46,7 @@ namespace TaskManagementSystem.Controllers
             }
             return View(notification);
         }
-
-        [Authorize(Roles = "Developer, Project Manager")]
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
