@@ -66,7 +66,10 @@
     </dl>
 </div>
 <button class="question" type="button">
-    <p class="link"> @Html.ActionLink("Back to Dashboad", "AllProjects", null, new { style = "color: white;text-decoration:none" }) </p>
+    <p class="link"> @Html.ActionLink("Back to Dashboad", "AllProjects", "Projects", null, new { style = "color: white;text-decoration:none" }) </p>
+</button>
+<button class="question" type="button">
+    <p class="link"> @Html.ActionLink("Back to Notifications", "Index", null, new { style = "color: white;text-decoration:none" }) </p>
 </button>
 <button class="question" type="button">
     <p class="link"> @Html.ActionLink("Go to Task", "Details", "ProjectTasks", new { id = Model.ProjectTaskId }, new { style = "color: white;text-decoration:none" }) </p>

@@ -61,15 +61,17 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <button class="question" type="submit">
+                    <p class="link">Save</p>
+                </button>
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<button class="question" type="button">
+    <p class="link"> @Html.ActionLink("Go to Projects", "Index", "Projects", null, new { style = "color: white;text-decoration:none" }) </p>
+</button>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

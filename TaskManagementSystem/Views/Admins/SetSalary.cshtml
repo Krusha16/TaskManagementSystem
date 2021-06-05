@@ -27,12 +27,13 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Set salary" class="btn btn-default" />
+                <button class="question" type="submit">
+                    <p class="link">Set Salary</p>
+                </button>
             </div>
         </div>
     </div>}
 
-<div>
-    @Html.ActionLink("Back To All Users", "ShowAllUsers")
-</div>
-
+<button class="question" type="button">
+    <p class="link"> @Html.ActionLink("Back To All Users", "ShowAllUsers", null, new { style = "color: white;text-decoration:none" }) </p>
+</button>
