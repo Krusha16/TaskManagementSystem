@@ -231,5 +231,52 @@ namespace TaskManagementSystem.Controllers
             }
             return View(sortedTasks);
         }
+
+        public ActionResult UpdatePriority(int? id)
+        {
+            var projectTask = db.ProjectTasks.Find(id);
+            return View(projectTask);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdatePriority(int Id, Priority priority)
+        {
+            var projectTask = db.ProjectTasks.Find(Id);
+            if (projectTask != null)
+            {
+                projectTask.Priority = priority;
+                if (ModelState.IsValid)
+                {
+                    db.Entry(projectTask).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("AllTasks");
+        }
+
+        public ActionResult SetOrUpdateDeadline(int? id)
+        {
+            var projectTask = db.ProjectTasks.Find(id);
+            return View(projectTask);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SetOrUpdateDeadline(int Id, string deadline)
+        {
+            var date = Convert.ToDateTime(deadline);
+            var projectTask = db.ProjectTasks.Find(Id);
+            if (projectTask != null)
+            {
+                projectTask.Deadline = date;
+                if (ModelState.IsValid)
+                {
+                    db.Entry(projectTask).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("AllProjects", "Projects");
+        }
     }
 }

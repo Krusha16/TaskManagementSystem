@@ -312,6 +312,8 @@
     <Content Include="Views\Projects\SetStartDate.cshtml" />
     <Content Include="Views\Projects\SetFinishDate.cshtml" />
     <Content Include="Views\Projects\SetDeadline.cshtml" />
+    <Content Include="Views\ProjectTasks\UpdatePriority.cshtml" />
+    <Content Include="Views\ProjectTasks\SetOrUpdateDeadline.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -115,6 +115,9 @@
                             @Html.DisplayName("IsCompleted")
                         </th>
                         <th>
+                            @Html.DisplayName("Deadline")
+                        </th>
+                        <th>
                             @Html.DisplayName("Priority")
                         </th>
                         <th></th>
@@ -122,31 +125,35 @@
 
                     @foreach (var task in item.ProjectTasks)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => task.ApplicationUser.Email)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => task.Project.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => task.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => task.CompletionPercentage)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => task.IsCompleted)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => task.Priority)
-                            </td>
-                            <td>
-                                <a href="@Url.Action("Edit", "ProjectTasks", new { id = task.Id })">Edit</a> |
-                                <a href="@Url.Action("Details", "ProjectTasks", new { id = task.Id })">Details</a> |
-                                <a href="@Url.Action("Delete", "ProjectTasks", new { id = task.Id })">Delete</a>
-                            </td>
-                        </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => task.ApplicationUser.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => task.Project.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => task.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => task.CompletionPercentage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => task.IsCompleted)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => task.Deadline)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => task.Priority)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "ProjectTasks", new { id = task.Id })">Edit</a> |
+                        <a href="@Url.Action("SetOrUpdateDeadline", "ProjectTasks", new { id = task.Id })">Set Or Update Deadline</a> |
+                        <a href="@Url.Action("Details", "ProjectTasks", new { id = task.Id })">Details</a> |
+                        <a href="@Url.Action("Delete", "ProjectTasks", new { id = task.Id })">Delete</a>
+                    </td>
+                </tr>
                     }
                 </table>
             </td>

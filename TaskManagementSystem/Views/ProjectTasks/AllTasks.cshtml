@@ -30,6 +30,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Comments)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -148,6 +151,8 @@
             </div>
         }
     </td>
+
+    <td>@Html.ActionLink("Update Priority", "UpdatePriority", new { id = item.Id })</td>
 </tr>
 }
 
