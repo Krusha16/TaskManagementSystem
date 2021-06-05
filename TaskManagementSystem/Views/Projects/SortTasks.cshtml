@@ -14,9 +14,11 @@
         <br />
         <b>@Html.DisplayNameFor(model => model.Priority)</b> : @Html.DisplayFor(model => model.Priority)
         <br />
-        <button class="question" type="button"><p class="link"> 
-            <a href="@Url.Action("Create", "ProjectTasks", new { style = "color: white;text-decoration:none" })">Create New</a>
-            </p></button>
+        <div class="create">
+            <a class="link" href="@Url.Action("Create", "ProjectTasks", new { style = "color: white;text-decoration:none" })">
+                Create
+            </a>
+        </div>
     </div>
     <div class="navigate">
         <div>

@@ -186,7 +186,6 @@ namespace TaskManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UpdatePriority(int Id, Priority priority)
         {
-            //var date = Convert.ToDateTime(startDate);
             var projectTask = db.ProjectTasks.Find(Id);
             if (projectTask != null)
             {

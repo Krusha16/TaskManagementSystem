@@ -121,6 +121,7 @@ namespace TaskManagementSystem.Controllers
             base.Dispose(disposing);
         }
 
+        [Authorize(Roles = "Project Manager")]
         public ActionResult AssignDeveloper(int? id)
         {
             if (id == null)
@@ -132,7 +133,15 @@ namespace TaskManagementSystem.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Email");
+            var developers = new List<ApplicationUser>();
+            foreach(var user in db.Users)
+            {
+                if (MembershipHelper.CheckIfUserIsInRole(user.Id, "Developer"))
+                {
+                    developers.Add(user);
+                }
+            }
+            ViewBag.ApplicationUserId = new SelectList(developers, "Id", "Email");
             return View(projectTask);
         }
 
@@ -143,7 +152,15 @@ namespace TaskManagementSystem.Controllers
             {
                 ProjectTaskHelper.AddDeveloper(id, ApplicationUserId);
             }
-            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Email");
+            var developers = new List<ApplicationUser>();
+            foreach (var user in db.Users)
+            {
+                if (MembershipHelper.CheckIfUserIsInRole(user.Id, "Developer"))
+                {
+                    developers.Add(user);
+                }
+            }
+            ViewBag.ApplicationUserId = new SelectList(developers, "Id", "Email");
             return RedirectToAction("Details", new { id });
         }
 

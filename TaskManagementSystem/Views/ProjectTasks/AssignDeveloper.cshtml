@@ -3,21 +3,20 @@
     ViewBag.Title = "AssignDeveloper";
 }
 
-<h2>AssignDeveloper</h2>
+<h2>Assign Developer</h2>
 
 @using (Html.BeginForm())
 {
     <div>
-        <h4>Tag</h4>
         <hr />
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            Select the song: @Html.DropDownList("ApplicationUserId")
+            Select the Developer: @Html.DropDownList("ApplicationUserId")
         </div>
 
         <button type="submit" value="Add">
-            Add
+            Assign Developer
         </button>
     </div>
 }
