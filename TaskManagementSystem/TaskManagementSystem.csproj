@@ -298,7 +298,6 @@
     <Content Include="Views\ProjectTasks\Create.cshtml" />
     <Content Include="Views\ProjectTasks\Delete.cshtml" />
     <Content Include="Views\ProjectTasks\Details.cshtml" />
-    <Content Include="Views\ProjectTasks\Edit.cshtml" />
     <Content Include="Views\ProjectTasks\AllTasks.cshtml" />
     <Content Include="Views\Projects\AllProjects.cshtml" />
     <Content Include="Views\Projects\SortTasks.cshtml" />
@@ -309,11 +308,8 @@
     <Content Include="Views\Notifications\OpenNotification.cshtml" />
     <Content Include="Views\Admins\SetSalary.cshtml" />
     <Content Include="Views\Admins\ShowAllUsers.cshtml" />
-    <Content Include="Views\Projects\SetBudget.cshtml" />
-    <Content Include="Views\Projects\SetStartDate.cshtml" />
-    <Content Include="Views\Projects\SetFinishDate.cshtml" />
-    <Content Include="Views\Projects\SetDeadline.cshtml" />
     <Content Include="Views\Notifications\Delete.cshtml" />
+    <Content Include="Views\Projects\UpdatePriority.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
