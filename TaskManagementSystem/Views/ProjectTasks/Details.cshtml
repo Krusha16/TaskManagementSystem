@@ -54,8 +54,11 @@
 </div>
 
 <button class="question" type="button">
-    <p class="link"> @Html.ActionLink("Back to Notifications", "Index", "Notifications", null, new { style = "color: white;text-decoration:none" }) </p>
+    <p class="link"> @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { style = "color: white;text-decoration:none" }) </p>
 </button>
 <button class="question" type="button">
-    <p class="link"> @Html.ActionLink("Back to Projects", "Index", "Projects", null, new { style = "color: white;text-decoration:none" }) </p>
+    <p class="link"> @Html.ActionLink("Go to Notifications", "Index", "Notifications", null, new { style = "color: white;text-decoration:none" }) </p>
+</button>
+<button class="question" type="button">
+    <p class="link"> @Html.ActionLink("Go to Projects", "Index", "Projects", null, new { style = "color: white;text-decoration:none" }) </p>
 </button>
