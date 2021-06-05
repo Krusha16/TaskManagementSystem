@@ -118,3 +118,4 @@ D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrati
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddBudgetProperty.resources
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.AddTotalCostToProject.resources
 D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.MakeDeadlineNullable.resources
+D:\ACSharp\Task-repo\TaskManagementSystem\obj\Debug\TaskManagementSystem.Migrations.MakeIsOpenedNotNullable.resources

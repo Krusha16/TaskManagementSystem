@@ -121,7 +121,7 @@ namespace TaskManagementSystem.Controllers
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             ApplicationUser applicationUser = db.Users.Find(userId);
             ProjectTaskHelper.UpdateNotificationsForProjects();
-            ViewBag.NotificationCount = applicationUser.Notifications.Count;
+            ViewBag.NotificationCount = applicationUser.Notifications.Where(n => n.IsOpened == false).Count();
             var filteredProjects = db.Projects.Where(p => p.ApplicationUserId == userId).ToList();
             var sortedProjects = filteredProjects.OrderByDescending(p => (int)(p.Priority)).ToList();
             return View(sortedProjects);
@@ -173,6 +173,7 @@ namespace TaskManagementSystem.Controllers
             }
             db.SaveChanges();
             ViewBag.Exceeded = true;
+            ViewBag.NotificationCount = applicationUser.Notifications.Where(n => n.IsOpened == false).Count();
             return View("~/Views/Projects/AllProjects.cshtml", ExccededBudgetProjects);
         }
 

@@ -16,11 +16,13 @@ namespace TaskManagementSystem.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize(Roles = "Project Manager,Developer")]
         public ActionResult Index()
         {
             return RedirectToAction("AllTasks", "ProjectTasks");
         }
 
+        [Authorize(Roles = "Project Manager,Developer")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -59,37 +61,7 @@ namespace TaskManagementSystem.Controllers
             return View(projectTask);
         }
 
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ProjectTask projectTask = ProjectTaskHelper.FindProjectTask(id);
-            if (projectTask == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Email", projectTask.ApplicationUserId);
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", projectTask.ProjectId);
-            return View(projectTask);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,CompletionPercentage,IsCompleted,ApplicationUserId,ProjectId")] ProjectTask projectTask)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(projectTask).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ApplicationUserId = new SelectList(db.Users, "Id", "Email", projectTask.ApplicationUserId);
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", projectTask.ProjectId);
-            return View(projectTask);
-        }
-
+        [Authorize(Roles = "Project Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -170,7 +142,7 @@ namespace TaskManagementSystem.Controllers
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             ApplicationUser applicationUser = db.Users.Find(userId);
             ProjectTaskHelper.UpdateNotifications(applicationUser);
-            ViewBag.NotificationCount = applicationUser.Notifications.Count;
+            ViewBag.NotificationCount = applicationUser.Notifications.Where(n => n.IsOpened == false).Count();
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
             return View(filteredTasks);
         }
@@ -196,7 +168,7 @@ namespace TaskManagementSystem.Controllers
             ModelState["percentage"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             ApplicationUser applicationUser = db.Users.Find(userId);
-            ViewBag.NotificationCount = applicationUser.Notifications.Count;
+            ViewBag.NotificationCount = applicationUser.Notifications.Where(n => n.IsOpened == false).Count();
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
             return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
         }
@@ -219,7 +191,7 @@ namespace TaskManagementSystem.Controllers
             ProjectHelper.UpdateNotifications(projectTask.Project);
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             ApplicationUser applicationUser = db.Users.Find(userId);
-            ViewBag.NotificationCount = applicationUser.Notifications.Count;
+            ViewBag.NotificationCount = applicationUser.Notifications.Where(n => n.IsOpened == false).Count();
             var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
             return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
         }
@@ -231,7 +203,7 @@ namespace TaskManagementSystem.Controllers
             ProjectTask projectTask = db.ProjectTasks.Find(taskId);
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             ApplicationUser applicationUser = db.Users.Find(userId);
-            ViewBag.NotificationCount = applicationUser.Notifications.Count;
+            ViewBag.NotificationCount = applicationUser.Notifications.Where(n => n.IsOpened == false).Count();
             ProjectTaskHelper.AddUrgentNote(taskId, content, userId, flag);
             if(flag == "Urgent")
                 ProjectTaskHelper.UrgentNotificationToProjectManager(projectTask);
@@ -257,6 +229,26 @@ namespace TaskManagementSystem.Controllers
                 }
             }
             return View(sortedTasks);
+        }
+
+        [Authorize(Roles = "Project Manager")]
+        public ActionResult UpdateDeadline(int? Id)
+        {
+            var projectTask = db.ProjectTasks.Find(Id);
+            return View(projectTask);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdateDeadline(int Id, string deadline)
+        {
+            var projectTask = db.ProjectTasks.Find(Id);
+            if (projectTask != null)
+            {
+                projectTask.Deadline = Convert.ToDateTime(deadline);
+                db.SaveChanges();
+            }
+            return RedirectToAction("AllProjects", "Projects");
         }
     }
 }

@@ -221,6 +221,10 @@
     <Compile Include="Migrations\202106041756010_MakeDeadlineNullable.Designer.cs">
       <DependentUpon>202106041756010_MakeDeadlineNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106051821070_MakeIsOpenedNotNullable.cs" />
+    <Compile Include="Migrations\202106051821070_MakeIsOpenedNotNullable.Designer.cs">
+      <DependentUpon>202106051821070_MakeIsOpenedNotNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -310,6 +314,7 @@
     <Content Include="Views\Admins\ShowAllUsers.cshtml" />
     <Content Include="Views\Notifications\Delete.cshtml" />
     <Content Include="Views\Projects\UpdatePriority.cshtml" />
+    <Content Include="Views\ProjectTasks\UpdateDeadline.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -360,6 +365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106041756010_MakeDeadlineNullable.resx">
       <DependentUpon>202106041756010_MakeDeadlineNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106051821070_MakeIsOpenedNotNullable.resx">
+      <DependentUpon>202106051821070_MakeIsOpenedNotNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
