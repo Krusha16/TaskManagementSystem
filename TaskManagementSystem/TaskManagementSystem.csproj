@@ -315,6 +315,7 @@
     <Content Include="Views\Notifications\Delete.cshtml" />
     <Content Include="Views\Projects\UpdatePriority.cshtml" />
     <Content Include="Views\ProjectTasks\UpdateDeadline.cshtml" />
+    <Content Include="Views\ProjectTasks\UpdatePriority.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

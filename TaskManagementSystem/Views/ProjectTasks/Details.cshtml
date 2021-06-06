@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Project.Name)
+            @Html.DisplayName("Project Name")
         </dt>
 
         <dd>
@@ -27,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayName("Task Name")
         </dt>
 
         <dd>
@@ -70,9 +70,6 @@
     </dl>
 </div>
 
-<button class="question" type="button">
-    <p class="link"> @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { style = "color: white;text-decoration:none" }) </p>
-</button>
 <button class="question" type="button">
     <p class="link"> @Html.ActionLink("Go to Notifications", "Index", "Notifications", null, new { style = "color: white;text-decoration:none" }) </p>
 </button>

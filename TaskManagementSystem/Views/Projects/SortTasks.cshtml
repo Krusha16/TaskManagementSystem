@@ -57,51 +57,57 @@
 
     @foreach (var task in Model.ProjectTasks)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => task.ApplicationUser.Email)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => task.Project.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => task.Name)
-    </td>
-    <td class="prog">
-        <div class="percentages">
-            @Html.DisplayFor(modelItem => task.CompletionPercentage)%
-        </div>
-        <div class="bar">
-            <progress max="100" value="@task.CompletionPercentage"></progress>
-        </div>
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => task.IsCompleted)
-    </td>
-    @if (task.Priority == TaskManagementSystem.Models.Priority.Low)
-    {
-        <td style="color:white" })>
-            <div class="tagL">@Html.DisplayFor(modelItem => task.Priority)</div>
-        </td>
-    }
-    else if (task.Priority == TaskManagementSystem.Models.Priority.Medium)
-    {
-        <td style="color:white" })>
-            <div class="tagM">@Html.DisplayFor(modelItem => task.Priority)</div>
-        </td>
-    }
-    else if (task.Priority == TaskManagementSystem.Models.Priority.High)
-    {
-        <td style="color:white" })>
-            <div class="tagH">@Html.DisplayFor(modelItem => task.Priority)</div>
-        </td>
-    }
-    else if (task.Priority == TaskManagementSystem.Models.Priority.None)
-    {
-        <td style="color:white" })>
-            <div class="tagN">@Html.DisplayFor(modelItem => task.Priority)</div>
-        </td>
-    }
-</tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => task.ApplicationUser.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => task.Project.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => task.Name)
+            </td>
+            <td class="prog">
+                <div class="percentages">
+                    @Html.DisplayFor(modelItem => task.CompletionPercentage)%
+                </div>
+                <div class="bar">
+                    <progress max="100" value="@task.CompletionPercentage"></progress>
+                </div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => task.IsCompleted)
+            </td>
+            @if (task.Priority == TaskManagementSystem.Models.Priority.Low)
+            {
+                <td style="color:white" })>
+                    <div class="tagL">@Html.DisplayFor(modelItem => task.Priority)</div>
+                </td>
+            }
+            else if (task.Priority == TaskManagementSystem.Models.Priority.Medium)
+            {
+                <td style="color:white" })>
+                    <div class="tagM">@Html.DisplayFor(modelItem => task.Priority)</div>
+                </td>
+            }
+            else if (task.Priority == TaskManagementSystem.Models.Priority.High)
+            {
+                <td style="color:white" })>
+                    <div class="tagH">@Html.DisplayFor(modelItem => task.Priority)</div>
+                </td>
+            }
+            else if (task.Priority == TaskManagementSystem.Models.Priority.None)
+            {
+                <td style="color:white" })>
+                    <div class="tagN">@Html.DisplayFor(modelItem => task.Priority)</div>
+                </td>
+            }
+        </tr>
     }
 </table>
+
+<div class="question2">
+    <a class="link" href="@Url.Action("Index", new { style = "color: white;text-decoration:none" })">
+        Back to Dashboard
+    </a>
+</div>

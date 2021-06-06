@@ -16,13 +16,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ApplicationUser.Email)
+            @Html.DisplayName("Task Name")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Project.Name)
+            @Html.DisplayName("Project Name")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Deadline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CompletionPercentage)
@@ -37,123 +40,152 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.ApplicationUser.Email)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Project.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        <div class="prog">
-            <div class="percentages">
-                @Html.DisplayFor(modelItem => item.CompletionPercentage)%
-            </div>
-            <div class="bar">
-                <progress max="100" value="@item.CompletionPercentage"></progress>
-            </div>
-        </div>
-        <br />
-        @using (Html.BeginForm("UpdateCompletedPercentage", "ProjectTasks", new { taskId = item.Id }))
-        {
-            @Html.AntiForgeryToken()
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.Name)
+            </td>
+            <td>
+                @if (item.Deadline == null)
+                {<p>—</p> }
+                else
+                { @Html.DisplayFor(modelItem => item.Deadline)}
+            </td>
 
-            <div class="form-horizontal">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    <b style="padding-left:15px">Update Percentages</b>
-                    <div class="col-md-10">
-                        @Html.TextArea("percentage")
-                        @Html.HiddenFor(modelItem => item.Id)
-                    </div>
-                </div><div class="form-group">
-                    <button type="submit" class="question"><p class="link"> Save </p></button>
-                </div>
-            </div>
-        }
 
-    </td>
-    @*<td>
-        @Html.DisplayFor(modelItem => item.IsCompleted)
-        <br />
-        <div class="col-md-10">
-            <p>Mark it completed: </p>
-            <div class="checkbox">
-                <a href="@Url.Action("MarkAsCompleted", "ProjectTasks", new { taskId = item.Id })">
-                    @Html.EditorFor(modelItem => item.IsCompleted)
-                </a>
-            </div>
-        </div>
-    </td>*@
-
-    <td>
-        @Html.DisplayFor(modelItem => item.IsCompleted)
-        <br />
-        <div class="col-md-10">
-            <p>Mark it completed: </p>
-            @Html.CheckBox("checkbox", new { onclick = "onClickfunction()" })
-            <script>
-            function onClickfunction() {
-                var url = '@Url.Action("MarkAsCompleted", "ProjectTasks" , new { taskId = item.Id })';
-                window.location = url;
+            @if (item.Priority == TaskManagementSystem.Models.Priority.Low)
+            {
+                <td style="color:white" })>
+                    <div class="tagL">@Html.DisplayFor(modelItem => item.Priority)</div>
+                </td>
             }
-            </script>
-        </div>
-    </td>
-    <br />
-    <td>
-        @foreach (var comment in item.Comments)
-        {
-            <div class="">
-                @if (comment.Flag == TaskManagementSystem.Models.Flag.Urgent)
+            else if (item.Priority == TaskManagementSystem.Models.Priority.Medium)
+            {
+                <td style="color:white" })>
+                    <div class="tagM">@Html.DisplayFor(modelItem => item.Priority)</div>
+                </td>
+            }
+            else if (item.Priority == TaskManagementSystem.Models.Priority.High)
+            {
+                <td style="color:white" })>
+                    <div class="tagH">@Html.DisplayFor(modelItem => item.Priority)</div>
+                </td>
+            }
+            else if (item.Priority == TaskManagementSystem.Models.Priority.None)
+            {
+                <td style="color:white" })>
+                    <div class="tagN">@Html.DisplayFor(modelItem => item.Priority)</div>
+                </td>
+            }
+            <td>
+                <div class="prog">
+                    <div class="percentages">
+                        @Html.DisplayFor(modelItem => item.CompletionPercentage)%
+                    </div>
+                    <div class="bar">
+                        <progress max="100" value="@item.CompletionPercentage"></progress>
+                    </div>
+                </div>
+                <br />
+                @using (Html.BeginForm("UpdateCompletedPercentage", "ProjectTasks", new { taskId = item.Id }))
                 {
-                    <p>Urget: @comment.Content</p>
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <b style="padding-left:15px">Update Percentages</b>
+                            <div class="col-md-10">
+                                @Html.TextArea("percentage")
+                                @Html.HiddenFor(modelItem => item.Id)
+                            </div>
+                        </div><div class="form-group">
+                            <button type="submit" class="question"><p class="link"> Save </p></button>
+                        </div>
+                    </div>
+                }
+
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.IsCompleted)
+                    <br />
+                    <div class="col-md-10">
+                        <p>Mark it completed: </p>
+                        <div class="checkbox">
+                            <a href="@Url.Action("MarkAsCompleted", "ProjectTasks", new { taskId = item.Id })">
+                                @Html.EditorFor(modelItem => item.IsCompleted)
+                            </a>
+                        </div>
+                    </div>
+                </td>*@
+
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCompleted)
+                <br />
+                <div class="col-md-10">
+                    <p>Mark it completed: </p>
+                    @Html.CheckBox("checkbox", new { onclick = "onClickfunction()" })
+                    <script>
+                            function onClickfunction() {
+                                var url = '@Url.Action("MarkAsCompleted", "ProjectTasks" , new { taskId = item.Id })';
+                                window.location = url;
+                            }
+                    </script>
+                </div>
+            </td>
+            <br />
+            <td>
+                @foreach (var comment in item.Comments)
+                {
+                    <div class="">
+                        @if (comment.Flag == TaskManagementSystem.Models.Flag.Urgent)
+                        {
+                            <p>Urgent: @comment.Content</p>
+                        }
+                        else
+                        {
+                            <p>@comment.Content</p>
+                        }
+                    </div>
+                }
+
+                <br />
+                @if (item.IsCompleted)
+                {
+                    using (Html.BeginForm("AddCommentOrUrgentNote", "ProjectTasks", new { taskId = item.Id, flag = "None" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="">
+                            @Html.TextArea("content", new { @class = "" })
+                            @Html.HiddenFor(modelItem => item.Id)
+                        </div>
+                        <div>
+                            <button type="submit" class="question"><p class="link"> Add Comment </p></button>
+                        </div>
+                    }
+                    <br />
                 }
                 else
                 {
-                    <p>@comment.Content</p>
-                }
-            </div>
-        }
-
-        <br />
-        @if (item.IsCompleted)
-        {
-            using (Html.BeginForm("AddCommentOrUrgentNote", "ProjectTasks", new { taskId = item.Id, flag = "None" }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="">
-                    @Html.TextArea("content", new { @class = "" })
-                    @Html.HiddenFor(modelItem => item.Id)
-                </div>
-                <div>
-                    <button type="submit" class="question"><p class="link"> Add Comment </p></button>
-                </div>
-            }
-            <br />
-        }
-        else
-        {
-            <div>
-                @using (Html.BeginForm("AddCommentOrUrgentNote", "ProjectTasks", new { taskId = item.Id, flag = "Urgent" }))
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="">
-                        @Html.TextArea("content", new { @class = "" })
-                        @Html.HiddenFor(modelItem => item.Id)
-                    </div>
                     <div>
-                        <button type="submit" class="question"><p class="link"> Add Urgent Note </p></button>
+                        @using (Html.BeginForm("AddCommentOrUrgentNote", "ProjectTasks", new { taskId = item.Id, flag = "Urgent" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="">
+                                @Html.TextArea("content", new { @class = "" })
+                                @Html.HiddenFor(modelItem => item.Id)
+                            </div>
+                            <div>
+                                <button type="submit" class="question"><p class="link"> Add Urgent Note </p></button>
+                            </div>
+                        }
                     </div>
                 }
-            </div>
-        }
-    </td>
-</tr>
-    }
+            </td>
+        </tr>
+            }
 </table>
