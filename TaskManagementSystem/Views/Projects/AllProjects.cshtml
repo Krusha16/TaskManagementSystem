@@ -10,31 +10,44 @@
 }
 else
 {
-    <div class="navigate">
-        <div class="nav1">
-            <button class="question" type="button"><p class="link"> @Html.ActionLink("Create New Project", "Create", null, new { style = "color: white;text-decoration:none" }) </p></button>
-        </div>
-        <div class="nav2">
-            <a href="@Url.Action("Index", "Notifications", new { style = "color: white;text-decoration:none" })" style="font-size:20px">
-                <i class="fa fa-bell"></i>(@ViewBag.NotificationCount)
+<div class="navigate">
+    <div class="nav1">
+        <button class="question" type="button">
+            <p class="link"> 
+                @Html.ActionLink("Create New Project", "Create", null, new { style = "color: white;text-decoration:none" }) 
+            </p>
+        </button>
+    </div>
+    <div class="nav1">
+        <button class="question" type="button">
+            <p class="link"> 
+                <a class="link" href="@Url.Action("Create", "ProjectTasks", new { style = "color: white;text-decoration:none" })">
+                    Create New Task
+                </a>
+            </p>
+        </button>
+    </div>
+    <div class="nav2">
+        <a href="@Url.Action("Index", "Notifications", new { style = "color: white;text-decoration:none" })" style="font-size:20px">
+            <i class="fa fa-bell"></i>(@ViewBag.NotificationCount)
+        </a>
+        <div class="question2">
+            <a class="link" href="@Url.Action("UnFinishedPassedDeadline", "ProjectTasks", new { style = "color: white;text-decoration:none" })">
+                Tasks Passed Deadline
             </a>
-            <div class="question2">
-                <a class="link" href="@Url.Action("UnFinishedPassedDeadline", "ProjectTasks", new { style = "color: white;text-decoration:none" })">
-                    Tasks Passed Deadline
-                </a>
-            </div>
-            <div class="question2">
-                <a class="link" href="@Url.Action("GetProjectsExceededBudget", "Projects", new { style = "color: white;text-decoration:none" })">
-                    Over Budget Projects
-                </a>
-            </div>
-            <div class="question2">
-                <a class="link" href="@Url.Action("ShowAllUsers", "Admins", new { style = "color: white;text-decoration:none" })">
-                    Show All Users
-                </a>
-            </div>
+        </div>
+        <div class="question2">
+            <a class="link" href="@Url.Action("GetProjectsExceededBudget", "Projects", new { style = "color: white;text-decoration:none" })">
+                Over Budget Projects
+            </a>
+        </div>
+        <div class="question2">
+            <a class="link" href="@Url.Action("ShowAllUsers", "Admins", new { style = "color: white;text-decoration:none" })">
+                Show All Users
+            </a>
         </div>
     </div>
+</div>
 }
 <br />
 
