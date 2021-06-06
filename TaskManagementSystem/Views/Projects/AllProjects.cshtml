@@ -12,7 +12,7 @@ else
 {
     <div class="navigate">
         <div class="nav1">
-            <button class="question" type="button"><p class="link"> @Html.ActionLink("Create New", "Create", null, new { style = "color: white;text-decoration:none" }) </p></button>
+            <button class="question" type="button"><p class="link"> @Html.ActionLink("Create New Project", "Create", null, new { style = "color: white;text-decoration:none" }) </p></button>
         </div>
         <div class="nav2">
             <a href="@Url.Action("Index", "Notifications", new { style = "color: white;text-decoration:none" })" style="font-size:20px">
@@ -149,10 +149,10 @@ else
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayName("Email")
+                @Html.DisplayName("Developer Email")
             </th>
             <th>
-                @Html.DisplayName("taskName")
+                @Html.DisplayName("task Name")
             </th>
             <th>
                 @Html.DisplayName("Deadline")
