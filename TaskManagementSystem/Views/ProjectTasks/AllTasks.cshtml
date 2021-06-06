@@ -19,10 +19,16 @@
             @Html.DisplayNameFor(model => model.ApplicationUser.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Project.Name)
+            @Html.DisplayName("Project Name")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayName("Task Name")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Deadline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CompletionPercentage)
@@ -47,6 +53,39 @@
     <td>
         @Html.DisplayFor(modelItem => item.Name)
     </td>
+    <td>
+        @if (item.Deadline == null)
+        {<p>—</p> }
+        else
+        { @Html.DisplayFor(modelItem => item.Deadline)}
+    </td>
+
+
+    @if (item.Priority == TaskManagementSystem.Models.Priority.Low)
+    {
+        <td style="color:white" })>
+            <div class="tagL">@Html.DisplayFor(modelItem => item.Priority)</div>
+        </td>
+    }
+    else if (item.Priority == TaskManagementSystem.Models.Priority.Medium)
+    {
+        <td style="color:white" })>
+            <div class="tagM">@Html.DisplayFor(modelItem => item.Priority)</div>
+        </td>
+    }
+    else if (item.Priority == TaskManagementSystem.Models.Priority.High)
+    {
+        <td style="color:white" })>
+            <div class="tagH">@Html.DisplayFor(modelItem => item.Priority)</div>
+        </td>
+    }
+    else if (item.Priority == TaskManagementSystem.Models.Priority.None)
+    {
+        <td style="color:white" })>
+            <div class="tagN">@Html.DisplayFor(modelItem => item.Priority)</div>
+        </td>
+    }
+
     <td>
         <div class="prog">
             <div class="percentages">
@@ -76,18 +115,7 @@
         }
 
     </td>
-    @*<td>
-        @Html.DisplayFor(modelItem => item.IsCompleted)
-        <br />
-        <div class="col-md-10">
-            <p>Mark it completed: </p>
-            <div class="checkbox">
-                <a href="@Url.Action("MarkAsCompleted", "ProjectTasks", new { taskId = item.Id })">
-                    @Html.EditorFor(modelItem => item.IsCompleted)
-                </a>
-            </div>
-        </div>
-    </td>*@
+
 
     <td>
         @Html.DisplayFor(modelItem => item.IsCompleted)
@@ -110,7 +138,7 @@
             <div class="">
                 @if (comment.Flag == TaskManagementSystem.Models.Flag.Urgent)
                 {
-                    <p>Urget: @comment.Content</p>
+                    <p>Urgent: @comment.Content</p>
                 }
                 else
                 {
