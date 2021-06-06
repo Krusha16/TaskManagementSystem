@@ -166,11 +166,7 @@ namespace TaskManagementSystem.Controllers
             }
             db.SaveChanges();
             ModelState["percentage"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            ApplicationUser applicationUser = db.Users.Find(userId);
-            ViewBag.NotificationCount = applicationUser.Notifications.Where(n => n.IsOpened == false).Count();
-            var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
-            return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
+            return RedirectToAction("AllTasks", "ProjectTasks");
         }
 
         [Authorize(Roles = "Developer")]
@@ -181,19 +177,11 @@ namespace TaskManagementSystem.Controllers
             {
                 projectTask.CompletionPercentage = 100;
                 projectTask.IsCompleted = true;
+                MembershipHelper.UpdateNotificationsForProjectManager(projectTask);
+                ProjectHelper.UpdateNotifications(projectTask.Project);
+                db.SaveChanges();
             }
-            else
-            {
-                projectTask.IsCompleted = false;
-            }
-            db.SaveChanges();
-            MembershipHelper.UpdateNotificationsForProjectManager(projectTask);
-            ProjectHelper.UpdateNotifications(projectTask.Project);
-            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-            ApplicationUser applicationUser = db.Users.Find(userId);
-            ViewBag.NotificationCount = applicationUser.Notifications.Where(n => n.IsOpened == false).Count();
-            var filteredTasks = db.ProjectTasks.Where(t => t.ApplicationUserId == userId).ToList();
-            return View("~/Views/ProjectTasks/AllTasks.cshtml", filteredTasks);
+            return RedirectToAction("AllTasks", "ProjectTasks");
         }
 
         [Authorize(Roles = "Developer")]

@@ -108,34 +108,18 @@
                 }
 
             </td>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.IsCompleted)
-                    <br />
-                    <div class="col-md-10">
-                        <p>Mark it completed: </p>
-                        <div class="checkbox">
-                            <a href="@Url.Action("MarkAsCompleted", "ProjectTasks", new { taskId = item.Id })">
-                                @Html.EditorFor(modelItem => item.IsCompleted)
-                            </a>
-                        </div>
-                    </div>
-                </td>*@
-
             <td>
-                @Html.DisplayFor(modelItem => item.IsCompleted)
+                @using (Html.BeginForm("MarkAsCompleted", "ProjectTasks", new { taskId = item.Id }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.CheckBoxFor(modelItem => item.IsCompleted)
+                    @Html.HiddenFor(modelItem => item.Id)
+                    <div class="form-group">
+                        <button type="submit" class="question"><p class="link">Mark As Completed</p></button>
+                    </div>
+                }
                 <br />
-                <div class="col-md-10">
-                    <p>Mark it completed: </p>
-                    @Html.CheckBox("checkbox", new { onclick = "onClickfunction()" })
-                    <script>
-                            function onClickfunction() {
-                                var url = '@Url.Action("MarkAsCompleted", "ProjectTasks" , new { taskId = item.Id })';
-                                window.location = url;
-                            }
-                    </script>
-                </div>
             </td>
-            <br />
             <td>
                 @foreach (var comment in item.Comments)
                 {
@@ -187,5 +171,5 @@
                 }
             </td>
         </tr>
-            }
+     }
 </table>
