@@ -81,7 +81,7 @@ namespace TaskManagementSystem.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ProjectTaskHelper.DeleteProjectTask(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("AllProjects", "Projects");
         }
 
         protected override void Dispose(bool disposing)
@@ -247,6 +247,30 @@ namespace TaskManagementSystem.Controllers
             {
                 projectTask.Deadline = Convert.ToDateTime(deadline);
                 db.SaveChanges();
+            }
+            return RedirectToAction("AllProjects", "Projects");
+        }
+
+        [Authorize(Roles = "Project Manager")]
+        public ActionResult UpdatePriority(int? id)
+        {
+            var projectTask = db.ProjectTasks.Find(id);
+            return View(projectTask);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UpdatePriority(int Id, Priority priority)
+        {
+            var projectTask = db.ProjectTasks.Find(Id);
+            if (projectTask != null)
+            {
+                projectTask.Priority = priority;
+                if (ModelState.IsValid)
+                {
+                    db.Entry(projectTask).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
             }
             return RedirectToAction("AllProjects", "Projects");
         }
